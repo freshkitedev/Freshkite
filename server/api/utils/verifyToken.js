@@ -7,7 +7,7 @@ export const verifyToken = (req, res, next) => {
     return next(createError(401, "You are not authenticated!"));
   }
 
-  jwt.verify(token, process.env.JWT, (err, user) => {
+  jwt.verify(token, process.env.JWT, (err, student) => {
     if (err) return next(createError(403, "Token is not valid!"));
     req.student = student;
     next();

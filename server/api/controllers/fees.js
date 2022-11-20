@@ -21,7 +21,7 @@ export const updateFees = async (req,res,next)=>{
     } catch (err) {
       next(err);
     }
-  }
+  };
 
 export const deleteFees = async (req,res,next)=>{
     try {
@@ -30,4 +30,20 @@ export const deleteFees = async (req,res,next)=>{
     } catch (err) {
       next(err);
     }
-  }
+};
+    export const getFees = async (req,res,next)=>{
+      try {
+        const fees = await Fees.findById(req.params.id);
+        res.status(200).json(Fees);
+      } catch (err) {
+        next(err);
+      }
+    };
+    export const getAllFees = async (req,res,next)=>{
+      try {
+        const Fee = await Fees.find();
+        res.status(200).json(Fee);
+      } catch (err) {
+        next(err);
+      }
+    };

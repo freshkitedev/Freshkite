@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import authRoute from "./routes/auth.js";
+import adminRoute from "./routes/admin.js";
 import studentsRoute from "./routes/students.js";
 import coursesRoute from "./routes/courses.js";
 import feeRoute from "./routes/fee.js";
@@ -24,6 +25,7 @@ mongoose.connection.on("disconnected", () => {
 });
 app.use(cookieParser())
 app.use(express.json());
+app.use("/api/admin", adminRoute);
 app.use("/api/students", studentsRoute);
 app.use("/api/courses", coursesRoute);
 app.use("/api/auth", authRoute);
