@@ -1,6 +1,6 @@
  $ - represents command
  
- ---> Clone this reposiotry $ git clone https://github.com/freshkitedev/Freshkite.git
+ ---> Fork this reposiotry 
  
  ---> Navigate to the Freshkite Folder ---> Navigate to api $ npm start 
  
