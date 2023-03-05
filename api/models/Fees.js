@@ -13,13 +13,9 @@ var FeesSchema = new mongoose.Schema(
       CourseName: {
         type: String,
         required: true,
-      },
-      CourseIds: {
-        type: [String],
-      },
-      StudentIds: {
-        type: [String],
-      },
+        unique:true
+      }
+      
     }
   )
   autoIncrement.initialize(mongoose.connection);

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import  "bootstrap"
 import axios from "axios"
 import "./ADashboard.css"
+import { useNavigate } from "react-router-dom";
 
 
 const Adash = ()=>{
@@ -11,6 +12,8 @@ const Adash = ()=>{
        getAll()
       },[])
 
+      const navigate =useNavigate()
+
       const getAll = ()=>{
         axios.get("http://localhost:9020/api/students/").then((result)=>{  
           setData(result.data)
@@ -18,9 +21,16 @@ const Adash = ()=>{
       }
       
     const del = async(items)=>{
+      // eslint-disable-next-line no-restricted-globals
+      if (confirm(`Are you Sure to delete ${items.name}`) === true){
        await axios.delete(`http://localhost:9020/api/students/${items._id}`)
        getAll()
-      
+      }
+    }
+    const payfee = async(items)=>{
+      console.log(items);
+      navigate("/paymentPage",{state:{items}})
+
     }
     
 
@@ -47,7 +57,8 @@ const Adash = ()=>{
         <th>Email</th>
         <th>Year</th>
         <th>Phone</th>
-        <th>Update</th>
+        <th>Balance(Rs.)</th>
+        <th>Payfee</th>
         <th>Delete</th>
       </tr>
     </thead>
@@ -65,7 +76,8 @@ const Adash = ()=>{
             <td>{items.email}</td>
             <td>{items.year}</td>
             <td>{items.phone}</td>
-            <td><button type="button"className="btn btn-success">Update</button></td>
+            <td>{items.balance}</td>
+            <td><button type="button"className="btn btn-success" onClick={()=>payfee(items)}>Payfee</button></td>
             <td><button type = "button"className="btn btn-danger" onClick={()=>del(items)}>Delete</button></td>
            </tr>
           )
