@@ -5,6 +5,7 @@ var CourseSchema = new mongoose.Schema(
       course: {
           type: String,
           required: true,
+          unique:true
       },
       duration: {
         type: Number,
@@ -14,9 +15,11 @@ var CourseSchema = new mongoose.Schema(
         type: String,
         required: true,
       },
-      studentIds: {
-        type: [String],
-      },
+      fees:{
+        type:Number,
+ 
+      }
+      
     }
   )
 autoIncrement.initialize(mongoose.connection);

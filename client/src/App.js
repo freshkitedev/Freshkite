@@ -6,6 +6,7 @@ import Student from "./pages/Student/Student"
 import Adash from "./pages/ADashboard/ADashboard"
 import { AddStudent } from "./pages/ADashboard/AddStudent"
 import AddCourse from "./pages/ADashboard/AddCourse"
+import Payment from "./pages/ADashboard/Payment"
 
 
 
@@ -21,6 +22,7 @@ function App() {
       <Route path="/dashboard" element={<Adash/>}/>
       <Route path="/addStudent" element={<AddStudent/>}/>
       <Route path="/addCourse" element={<AddCourse/>}/>
+      <Route path="/paymentPage" element={<Payment/>}/>
     </Routes>
    </BrowserRouter>
   );

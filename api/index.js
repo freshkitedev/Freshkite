@@ -12,12 +12,12 @@ import morgan from "morgan";
 import cors from "cors";
 
 const app = express();
-dotenv.config();
+dotenv.config(); 
 
 const connect = async () => {
   try {
     await mongoose.connect(process.env.MONGO);
-    console.log("Connected to mongoDB.");
+    console.log("Connected to mongoDB."); 
   } catch (error) {
     throw error;
   }
@@ -33,7 +33,7 @@ app.use(cors())
 app.use("/api/admin", adminRoute);
 app.use("/api/students", studentsRoute);
 app.use("/api/courses", coursesRoute);
-app.use("/api/auth", authRoute);
+app.use("/api/auth", authRoute); 
 app.use("/api/fees", feeRoute);
 app.use("/api/pay", payRoute);
 

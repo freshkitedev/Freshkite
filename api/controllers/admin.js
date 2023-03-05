@@ -26,29 +26,34 @@ export const createstudent = async (req, res, next) => {
   try {
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(req.body.password, salt);
-    const CourseId = req.params.CourseId;
-    const newStudent = new Student({
-      name: req.body.name,
-      course: req.body.course,
-      year: req.body.year,
-      email: req.body.email,
-      phone: req.body.phone,
-      password: hash,
-    });
-    const savedStudent = await newStudent.save();
     const course = await Course.findOne({ course: req.body.course})
-    if (!course) return next(createError(403, "Course not found"))
-    else {
-      await Course.findByIdAndUpdate(CourseId, {
-        $push: { course: savedStudent._id },
-      });
+    if (!course) {
+      return next(createError(403, "Course not found"))
+    }
+    else 
+    {
+      const newStudent = new Student({
+        name: req.body.name,
+        course: req.body.course,
+        year: req.body.year,
+        email: req.body.email,
+        phone: req.body.phone,
+        password: hash,
+        balance : course.fees
+      })
+      await newStudent.save();
     } 
-    await newStudent.save();
+    
     res.status(200).send("Student has been created.");
  } catch (err) {
     next(err);
   }
 };
+
+export const payFee = async(req,res) => {
+     const topay = req.body.topay 
+     const student = await Student.findById(req.body._id)
+}
 export const login = async (req, res, next) => {
   try {
     const admin = await Admin.findOne({ name: req.body.name });

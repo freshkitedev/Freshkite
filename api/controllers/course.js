@@ -1,17 +1,28 @@
 import Course from "../models/Course.js";
 import Fees from "../models/Fees.js";
+import { createError } from "../utils/error.js";
 export const createCourse = async (req,res,next)=>{
-  const newCourse = new Course(req.body);
+  
+  
   try {
-    const savedCourse = await newCourse.save();
-    const course = await Fees.findOne({ course: req.body.course})
+    
+    const course = await Fees.findOne({ CourseName: req.body.course})
     if (!course) return next(createError(402, "Fee not defined for the Course"))
     else {
-      await Fees.findOneAndUpdate(course, {
-        $push: { CourseIds: savedCourse._id },
-      });
+    
+    const newCourse = new Course({
+      course:req.body.course,
+      duration:req.body.duration,
+      description:req.body.description,
+      fees:course.totalFees
+      
+    });  
+    const savedCourse =  await newCourse.save()
+    res.status(200).json(savedCourse);
+  
     } 
-  res.status(200).json(savedCourse);
+   
+
 } catch (err) {
   next(err);
 }

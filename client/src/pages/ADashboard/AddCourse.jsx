@@ -6,9 +6,9 @@ import "./ADashboard.css"
 
 const AddCourse = ()=>{
       const [data,setData] = useState([]);
-      const [course,setCourse] = useState([]);
-      const [duration,setDuration] = useState([]);
-      const [description,setDesc] = useState([]);
+      const [Course,setCourse] = useState("");
+      const [Duration,setDuration] = useState("");
+      const [Description,setDesc] = useState("");
       
       useEffect(()=>{
        getAll()
@@ -16,7 +16,8 @@ const AddCourse = ()=>{
 
       const getAll = ()=>{
         axios.get("http://localhost:9020/api/courses").then((result)=>{  
-          setData(result.data)
+          setData( result.data)
+       
         })
       }
       
@@ -26,13 +27,15 @@ const AddCourse = ()=>{
       
     }
     const handleSubmit = ()=>{
+     
       const setdata = {
-        course:course,
-        duration: duration,
-        description: description
+        course:Course,
+        duration: Duration,
+        description: Description
       }
       axios.post("http://localhost:9020/api/courses",setdata).then(()=>{
         getAll()
+       
       })
     }
 
@@ -59,25 +62,24 @@ const AddCourse = ()=>{
                 <h5 class="card-title text-center mb-3 fw-bolder fs-10 text-secondary">New Course</h5>
                 <div class="form-floating mb-2">
                   <input type="text" class="form-control" id="floatingInput" 
-                  name = "name" onChange={(e)=>{setCourse(e.target.value)}} value = {course}
+                  name = "name" onChange={(e)=>{setCourse(e.target.value)}} value = {Course}
                   /> 
                   <label for="floatingInput">Course</label>
                 </div>
                 <div class="form-floating mb-2">
                   <input type="number" class="form-control" id="floatingPassword" 
-                   name = "password" onChange={(e)=>{setDuration(e.target.value)}} value = {duration}
+                   name = "password" onChange={(e)=>{setDuration(e.target.value)}} value = {Duration}
                   />
                   <label for="floatingPassword">Duration</label>
                 </div>
                 <div class="form-floating mb-4">
                   <input type="textbox" class="form-control" id="floatingPassword" 
-                   name = "password" onChange={(e)=>{setDesc(e.target.value)}} value = {description}
+                   name = "password" onChange={(e)=>{setDesc(e.target.value)}} value = {Description}
                   />
                   <label for="floatingPassword">Description</label>
                 </div>
                 <div class="d-grid">
                 <button class="btn btn-success btn-login text-uppercase fw-bold" type="submit"
-                 onClick={(e)=>handleSubmit(e)}
                 
                 >Create Course</button>
               </div>
