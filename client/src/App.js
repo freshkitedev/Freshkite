@@ -4,7 +4,7 @@ import Home from "./pages/Home/Home"
 import Admin from "./pages/Admin/Admin"
 import Student from "./pages/Student/Student"
 import Adash from "./pages/ADashboard/ADashboard"
-import { AddStudent } from "./pages/ADashboard/AddStudent"
+import  AddStudent  from "./pages/ADashboard/AddStudent"
 import AddCourse from "./pages/ADashboard/AddCourse"
 
 

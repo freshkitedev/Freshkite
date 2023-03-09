@@ -2,21 +2,36 @@ import React, { useEffect, useState } from "react";
 import  "bootstrap"
 import axios from "axios"
 import "./ADashboard.css"
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import {yupResolver} from "@hookform/resolvers/yup"
 
 
 const AddCourse = ()=>{
-      const [data,setData] = useState([]);
-      const [course,setCourse] = useState([]);
+      const [dataa,setDataa] = useState([]);
+      /* const [course,setCourse] = useState([]);
       const [duration,setDuration] = useState([]);
       const [description,setDesc] = useState([]);
-      
+       */ 
+
       useEffect(()=>{
        getAll()
       },[])
+      
+      const schema = yup.object().shape({
+        course: yup.string().required("course is required"),
+        duration: yup.number().min(1).max(3).positive().integer('Number must be an integer').required(),
+        description: yup.string().required(),
+        
+      })
+      const {register, handleSubmit, formState: {errors}} = useForm({
+        resolver: yupResolver(schema) 
+      });
+      
 
       const getAll = ()=>{
         axios.get("http://localhost:9020/api/courses").then((result)=>{  
-          setData(result.data)
+          setDataa(result.data)
         })
       }
       
@@ -25,13 +40,13 @@ const AddCourse = ()=>{
        getAll()
       
     }
-    const handleSubmit = ()=>{
-      const setdata = {
+    const onSubmit = (data)=>{
+      /* const setdata = {
         course:course,
         duration: duration,
         description: description
-      }
-      axios.post("http://localhost:9020/api/courses",setdata).then(()=>{
+      }*/
+       axios.post("http://localhost:9020/api/courses",data).then((response)=>{
         getAll()
       })
     }
@@ -51,7 +66,7 @@ const AddCourse = ()=>{
         <div className="row">
           
           <div className="col-5">
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit(onSubmit)}>
           <div class="col-sm-3 col-md-8 col-lg-11 mx-auto">
           <div class="card border-0 shadow rounded-4 my-4">
             <div class="card-body p-4 p-sm-4">
@@ -59,25 +74,30 @@ const AddCourse = ()=>{
                 <h5 class="card-title text-center mb-3 fw-bolder fs-10 text-secondary">New Course</h5>
                 <div class="form-floating mb-2">
                   <input type="text" class="form-control" id="floatingInput" 
-                  name = "name" onChange={(e)=>{setCourse(e.target.value)}} value = {course}
+                  name = "course" /* onChange={(e)=>{setCourse(e.target.value)}} value = {course} */
+                  {...register("course")}
                   /> 
                   <label for="floatingInput">Course</label>
+                  <p className="red">{errors.course?.message}</p>
                 </div>
                 <div class="form-floating mb-2">
                   <input type="number" class="form-control" id="floatingPassword" 
-                   name = "password" onChange={(e)=>{setDuration(e.target.value)}} value = {duration}
+                   name = "duration" /* onChange={(e)=>{setDuration(e.target.value)}} value = {duration} */
+                   {...register("duration")}
                   />
                   <label for="floatingPassword">Duration</label>
+                  <p className="red">{errors.duration?.message}</p>
                 </div>
                 <div class="form-floating mb-4">
                   <input type="textbox" class="form-control" id="floatingPassword" 
-                   name = "password" onChange={(e)=>{setDesc(e.target.value)}} value = {description}
+                   name = "description" /* onChange={(e)=>{setDesc(e.target.value)}} value = {description} */ {...register("description")}
                   />
                   <label for="floatingPassword">Description</label>
+                  <p className="red">{errors.description?.message}</p>
                 </div>
                 <div class="d-grid">
                 <button class="btn btn-success btn-login text-uppercase fw-bold" type="submit"
-                 onClick={(e)=>handleSubmit(e)}
+                 
                 
                 >Create Course</button>
               </div>
@@ -107,9 +127,9 @@ const AddCourse = ()=>{
   
 
    {
-        data.length > 0 ? 
+        dataa.length > 0 ? 
         (
-            data.map((items,index)=> 
+            dataa.map((items,index)=> 
             <tr key={items._id} >
             <td>{index + 1}</td>
              <td>{items.course}</td>
