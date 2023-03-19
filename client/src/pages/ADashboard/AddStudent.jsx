@@ -7,7 +7,7 @@ import {yupResolver} from "@hookform/resolvers/yup";
 import "./AddStudent.css";
 
 export const AddStudent = () => {
-
+//summa
   const navigate = useNavigate();
 
   const schema = yup.object().shape({
