@@ -53,3 +53,7 @@ body {
       float: none;
     }
   }
+
+  .red{
+    color: rgb(5, 20, 11)
+  }
