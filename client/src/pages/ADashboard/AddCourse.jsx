@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import  "bootstrap"
 import axios from "axios"
-import "./ADashboard.css"
+import "./Studentlist.css"
 
 
 const AddCourse = ()=>{
@@ -45,9 +45,10 @@ const AddCourse = ()=>{
       <div class="sidebar">
        
       <a  href="/dashboard">Dashboard</a>
+      <a href="/payfee">Pay Fee</a>
       <a href="/addStudent">Add Student</a>
       <a href="/addCourse" class="active">Course</a>
-      <a href="#about">About</a>
+      <a href="/Addfee">Add Fees  </a>
     </div>
     
        <div className="content">

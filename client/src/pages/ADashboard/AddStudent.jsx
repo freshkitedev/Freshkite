@@ -36,13 +36,14 @@ export const AddStudent = () => {
     <body className="body">
       <div class="sidebar">
        <a href="/dashboard">Dashboard</a>
+       <a href="/payfee">Pay Fee</a>
         <a href="/addStudent" class="active">
           Add Student
         </a>
         
 
         <a href="/addCourse">Course</a>
-        <a href="#about">About</a>
+        <a href="/Addfee">Add Fees  </a>
       </div>
       <div class="content">
         <div class="row">

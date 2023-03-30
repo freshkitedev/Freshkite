@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from "react";
 import  "bootstrap"
 import axios from "axios"
-import "./ADashboard.css"
+import "./Studentlist.css"
 import { useNavigate } from "react-router-dom";
 
 
 const Adash = ()=>{
       const [data,setData] = useState([]);
       
-      useEffect(()=>{
+      useEffect(()=>{ 
        getAll()
       },[])
 
       const navigate =useNavigate()
-
+   
       const getAll = ()=>{
         axios.get("http://localhost:9020/api/students/").then((result)=>{  
           setData(result.data)
@@ -32,17 +32,15 @@ const Adash = ()=>{
       navigate("/paymentPage",{state:{items}})
 
     }
-    
-
   
     return(
       <body>
       <div class="sidebar">
-
-      <a class="active" href="#home">Dashboard</a>
+      <a href="/dashboard" >Dashboard</a>
+      <a class="active" href="#home">Pay Fee</a>
       <a href="/addStudent">Add Student</a>
       <a href="/addCourse">Course</a>
-      <a href="#about">About</a>
+      <a href="/Addfee">Add Fees  </a>
     </div>
     
         <div class="content">

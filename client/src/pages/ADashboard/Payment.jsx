@@ -97,7 +97,7 @@ const Payment = () => {
                 </div>
                 <div class="d-grid">
                   <button
-                    class="btn btn-success btn-login text-uppercase fw-bold"
+                    class="btn btn-success btn-login text-uppercase fw-bold" 
                     type="submit"
                    
                   >
