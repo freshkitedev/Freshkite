@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import css from "./AddStudent.css"
+import css from "./AddStudent.css";
 
 export const AddStudent = () => {
   const [name, setName] = useState("");
@@ -27,27 +27,28 @@ export const AddStudent = () => {
       .then((result) => {
         navigate("/dashboard");
       })
-      .catch((error)=>{
-        alert(error.response.data.message)
-      
+      .catch((error) => {
+        alert(error.response.data.message);
       });
   };
   return (
     <body className="body">
       <div class="sidebar">
-       <a href="/dashboard">Dashboard</a>
+        <a href="/dashboard">Dashboard</a>
         <a href="/addStudent" class="active">
           Add Student
         </a>
-        
 
         <a href="/addCourse">Course</a>
         <a href="#about">About</a>
       </div>
       <div class="content">
         <div class="row">
-          <div class="col-sm-3 col-md-7 col-lg-5 mx-auto " >
-            <div class="card border-0 shadow rounded-4 my-4" style={{background:"#2399d9" ,color:"#000000"}}>
+          <div class="col-sm-3 col-md-7 col-lg-5 mx-auto ">
+            <div
+              class="card border-0 shadow rounded-4 my-4"
+              style={{ background: "#2399d9", color: "#000000" }}
+            >
               <div class="card-body p-4 p-sm-4">
                 <form onSubmit={handleSubmit}>
                   <div class="form-floating mb-2">
@@ -63,15 +64,22 @@ export const AddStudent = () => {
                     <label for="floatingInput">Name</label>
                   </div>
                   <div class="form-floating mb-2">
-                    <input
+                    <select
                       type="text"
-                      class="form-control"
+                      class="form-control form-select mb-3"
                       id="floatingPassword"
                       onChange={(e) => {
                         setCourse(e.target.value);
                       }}
                       value={course}
-                    />
+                      aria-label=".form-select-lg example"
+                    >
+                      <option selected> BE</option>
+                      <option value="B.Sc">B.Sc</option>
+                      <option value="12th">12th</option>
+                      <option value="BA">BA</option>
+                    </select>
+
                     <label for="floatingPassword">Course</label>
                   </div>
                   <div class="form-floating mb-2">
@@ -79,7 +87,6 @@ export const AddStudent = () => {
                       type="number"
                       class="form-control"
                       id="floatingPassword"
-                      
                       onChange={(e) => {
                         setYear(e.target.value);
                       }}
