@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 const Adash = ()=>{
       const [data,setData] = useState([]);
+      const [search,setSearch] = useState("");
       
       useEffect(()=>{ 
        getAll()
@@ -42,9 +43,14 @@ const Adash = ()=>{
       <a href="/addCourse">Course</a>
       <a href="/Addfee">Add Fees  </a>
     </div>
-    
+ 
         <div class="content">
         <div className="row">
+        <input 
+      className="search-box" 
+      type="text" 
+      placeholder="Search...." 
+      onChange={(event) => {setSearch(event.target.value)}} />
           <div className="col-12">
           <table className="table table-light">
        <thead>
@@ -61,33 +67,53 @@ const Adash = ()=>{
       </tr>
     </thead>
     <tbody>
-  
+  {
+    data.length ? (
+      data.filter((value) => {
+        if (search === "") {
+          return value;
+        } else if (value.name.toLowerCase().includes(search.toLowerCase())) {
+          return value;
+        }
+      }).map((items, index) => (
+        <tr key={items._id}>
+          <td>{index + 1}</td>
+          <td>{items.name}</td>
+          <td>{items.course}</td>
+          <td>{items.email}</td>
+          <td>{items.year}</td>
+          <td>{items.phone}</td>
+          <td>{items.balance}</td>
+          <td>
+            <button
+              type="button"
+              className="btn btn-success"
+              onClick={() => payfee(items)}
+            >
+              Payfee
+            </button>
+          </td>
+          <td>
+            <button
+              type="button"
+              className="btn btn-danger"
+              onClick={() => del(items)}
+            >
+              Delete
+            </button>
+          </td>
+        </tr>
+      ))
+    ) : (
+      <tr>
+        <td>No data found</td>
+      </tr>
+    )
+  }
+</tbody>
 
-   {
-        data.length > 0 ? 
-        (
-            data.map((items,index)=> 
-            <tr key={items._id}>
-            <td>{index + 1}</td>
-            <td>{items.name}</td>
-             <td>{items.course}</td>
-            <td>{items.email}</td>
-            <td>{items.year}</td>
-            <td>{items.phone}</td>
-            <td>{items.balance}</td>
-            <td><button type="button"className="btn btn-success" onClick={()=>payfee(items)}>Payfee</button></td>
-            <td><button type = "button"className="btn btn-danger" onClick={()=>del(items)}>Delete</button></td>
-           </tr>
-          )
-           
-        )
-        : 
-        (
-            <tr>No Data</tr>
-        )        
-      }
-    </tbody>
   </table>
+  
     </div> </div> </div> </body>
        
     )
