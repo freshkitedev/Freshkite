@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 const Adash = ()=>{
       const [data,setData] = useState([]);
+      const [search,setSearch] = useState("");
       
       useEffect(()=>{ 
        getAll()
@@ -46,6 +47,11 @@ const Adash = ()=>{
         <div class="content">
         <div className="row">
           <div className="col-12">
+          <input 
+      className="search-box" 
+      type="text" 
+      placeholder="Search...." 
+      onChange={(event) => {setSearch(event.target.value)}} />
           <table className="table table-light">
        <thead>
         <tr>
@@ -66,7 +72,13 @@ const Adash = ()=>{
    {
         data.length > 0 ? 
         (
-            data.map((items,index)=> 
+          data.filter((value) => {
+            if (search === "") {
+              return value;
+            } else if (value.name.toLowerCase().includes(search.toLowerCase())) {
+              return value;
+            }
+          }).map((items,index)=> 
             <tr key={items._id}>
             <td>{index + 1}</td>
             <td>{items.name}</td>
