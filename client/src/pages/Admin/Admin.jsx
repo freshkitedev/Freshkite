@@ -29,7 +29,8 @@ const Admin = (props) => {
          }
       })
       .catch((error) => { 
-        alert(error)
+        alert(error.response.data.message)
+        console.log(error);
       });
 
     } 

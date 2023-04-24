@@ -26,8 +26,8 @@ const AddCourse = ()=>{
        getAll()
       
     }
-    const handleSubmit = ()=>{
-     
+    const handleSubmit = (e)=>{
+     e.preventDefault()
       const setdata = {
         course:Course,
         duration: Duration,
@@ -35,7 +35,8 @@ const AddCourse = ()=>{
       }
       axios.post("http://localhost:9020/api/courses",setdata).then(()=>{
         getAll()
-       
+      }).catch((err)=>{
+        console.log(err);
       })
     }
 
@@ -55,7 +56,7 @@ const AddCourse = ()=>{
         <div className="row">
           
           <div className="col-5">
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={(e)=>handleSubmit(e)}>
           <div class="col-sm-3 col-md-8 col-lg-11 mx-auto">
           <div class="card border-0 shadow rounded-4 my-4">
             <div class="card-body p-4 p-sm-4">

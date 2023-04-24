@@ -75,7 +75,7 @@ const Adash = ()=>{
           data.filter((value) => {
             if (search === "") {
               return value;
-            } else if (value.name.toLowerCase().includes(search.toLowerCase())) {
+            } else if (value.name.toLowerCase().includes(search.toLowerCase()) || value.course.toLowerCase().includes(search.toLowerCase())) {
               return value;
             }
           }).map((items,index)=> 

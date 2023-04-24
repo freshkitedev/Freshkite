@@ -5,7 +5,7 @@ import css from "./AddStudent.css";
 
 export const AddStudent = () => {
   const [name, setName] = useState("");
-  const [course, setCourse] = useState("");
+  const [course, setCourse] = useState("BE");
   const [year, setYear] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -13,6 +13,7 @@ export const AddStudent = () => {
 
   const navigate = useNavigate();
   const handleSubmit = (e) => {
+    console.log(course)
     e.preventDefault();
     const data = {
       name: name,
@@ -21,6 +22,7 @@ export const AddStudent = () => {
       email: email,
       password: password,
       phone: phone,
+
     };
     axios
       .post("http://localhost:9020/api/admin/createstudent", data)

@@ -23,6 +23,6 @@ router.delete("/:id" ,   deleteFees);
 router.get("/:id",  getFees);
 
 //GET ALL
-router.get("/", verifyAdmin, getAllFees);
+router.get("/", getAllFees);
 
 export default router;

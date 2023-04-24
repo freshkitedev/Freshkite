@@ -12,31 +12,32 @@ import morgan from "morgan";
 import cors from "cors";
 
 const app = express();
-dotenv.config(); 
-
+dotenv.config();  
+// DB Connection
 const connect = async () => {
   try {
-    await mongoose.connect(process.env.MONGO);
+    await mongoose.connect(process.env.MONGO); 
     console.log("Connected to mongoDB."); 
   } catch (error) {
     throw error;
-  }
+  } 
 };
 
 mongoose.connection.on("disconnected", () => {
   console.log("mongoDB disconnected!"); 
 });
+//MiddleWares
 app.use(cookieParser())
 app.use(express.json());
-app.use(morgan("dev"));
+app.use(morgan("dev"));  
 app.use(cors())
 app.use("/api/admin", adminRoute);
 app.use("/api/students", studentsRoute);
-app.use("/api/courses", coursesRoute);
+app.use("/api/courses", coursesRoute);  
 app.use("/api/auth", authRoute); 
 app.use("/api/fees", feeRoute);
 app.use("/api/pay", payRoute);
-
+//For Error
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;
   const errorMessage = err.message || "Something went wrong!";

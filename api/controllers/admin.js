@@ -2,7 +2,7 @@ import Admin from "../models/Admin.js";
 import bcrypt from "bcryptjs";
 import { createError } from "../utils/error.js";
 import jwt from "jsonwebtoken";
-import Student from "../models/Student.js";
+import Student from "../models/Student.js"; 
 import Course from "../models/Course.js";
 
 export const register = async (req, res, next) => {
@@ -58,11 +58,12 @@ export const login = async (req, res, next) => {
   try {
     const admin = await Admin.findOne({ name: req.body.name });
     if (!admin) return next(createError(404, "Admin not found!"));
-
+  console.log(req.body.password);
     const isPasswordCorrect = await bcrypt.compare(
       req.body.password,
       admin.password
     );
+    console.log(isPasswordCorrect);
     if (!isPasswordCorrect)
       return next(createError(400, "Wrong password or username!"));
 
