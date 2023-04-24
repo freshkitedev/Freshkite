@@ -26,6 +26,7 @@ const connect = async () => {
 
 mongoose.connection.on("disconnected", () => {
   console.log("mongoDB disconnected!"); 
+  console.log("cloud mongodb disconnected try again");
 });
 app.use(cookieParser())
 app.use(express.json());
