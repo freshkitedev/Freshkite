@@ -1,4 +1,4 @@
-name: Node.js CI
+name: Node and React Test
 
 on:
   workflow_run:
@@ -8,9 +8,7 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [14.x, 16.x]
@@ -22,4 +20,4 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: cd api && npm install
-      - run: npm eslint api
+      - run: cd client && npm install
