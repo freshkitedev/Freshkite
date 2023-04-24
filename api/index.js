@@ -18,9 +18,9 @@ const connect = async () => {
   try {
     await mongoose.connect(process.env.MONGO);
     console.log("Connected to mongoDB."); 
-    console.log("cloud mongodb connected ");
+    console.log("cloud mongodb connection establised");
     console.log("connected");
-	  console.log("added test line");
+	  console.log("added test line in index.js");
   } catch (error) {
     throw error;
   }
