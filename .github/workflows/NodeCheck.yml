@@ -22,7 +22,4 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: cd api && npm install
-      - name: npm lint
-        uses: actions/npm@master
-        with:
-          args: npm eslint api
+      - run: npm eslint api
