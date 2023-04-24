@@ -15,4 +15,4 @@ jobs:
         url: "http://13.49.249.103:8080"
         user: "admin"
         token: "11564b0df4771a24cc2abaf8de7557432c"
-        job: "cicdPipeline"
+        job: "CICDPipeline"
