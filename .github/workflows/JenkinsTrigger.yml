@@ -1,4 +1,9 @@
-name: Jenkins-Pipeline-Trigger
+name: Jenkins Pipeline Trigger
+on:
+  workflow_run:
+    workflows: ["AutoMerge-PR","Node and React Test"]
+    types:
+      - completed
 jobs:
   build:
     name: Build
