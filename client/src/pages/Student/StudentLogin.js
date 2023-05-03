@@ -1,37 +1,6 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import Student from "../Student/Student";
-import "./Admin.css";
-import { Navigate, useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import "./StudentLogin.css";
 
-const Admin = (props) => {
-  const [name, setuser] = useState("");
-  const [password, setpassword] = useState("");
-
-  const navigate = useNavigate();
-  const redirect = () => {
-    navigate("/dashboard");
-  };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const data = {
-      name: name,
-      password: password,
-    };
-
-    axios
-      .post("http://localhost:9020/api/admin/login", data)
-      .then((result) => {
-        if (result.data.isAdmin) {
-          redirect();
-        }
-      })
-      .catch((error) => {
-        alert(error);
-      });
-  };
+const StudentLogin = () => {
   return (
     <div class="container">
       <div class="row">
@@ -39,7 +8,7 @@ const Admin = (props) => {
           <div class="card border-0 shadow rounded-3 my-5">
             <div class="card-body p-4 p-sm-5">
               <h5 class="card-title text-center mb-5 fw-light fs-5">
-                Admin's Sign In{" "}
+                Student's Sign In{" "}
                 <a href="/">
                   <i class="bi bi-house"></i>
                 </a>
@@ -52,10 +21,8 @@ const Admin = (props) => {
                     id="floatingInput"
                     placeholder="name@example.com"
                     name="name"
-                    value={name}
-                    onChange={(e) => setuser(e.target.value)}
                   />
-                  <label for="floatingInput">Username</label>
+                  <label for="floatingInput">Name</label>
                 </div>
                 <div class="form-floating mb-3">
                   <input
@@ -64,33 +31,30 @@ const Admin = (props) => {
                     id="floatingPassword"
                     placeholder="Password"
                     name="password"
-                    value={password}
-                    onChange={(e) => setpassword(e.target.value)}
                   />
                   <label for="floatingPassword">Password</label>
                 </div>
-                <div class="d-flex justify-content-end">
-                  <a href="/resetadmin">
+                <div id="reset" class="text-center text-md-end">
+                  <a href="/resetstudent">
                     <small>Forgot Your Password</small>
                   </a>
                 </div>
 
                 <br></br>
+
                 <div class="d-grid">
                   <button
                     class="btn btn-primary btn-login text-uppercase fw-bold"
                     type="submit"
-                    onClick={(e) => handleSubmit(e)}
                   >
-                    Sign in
+                    Let's Go In
                   </button>
                 </div>
-
                 <br></br>
-                <div class="col-12 col-md-7 mx-auto text-center text-md-end">
-                  <h6 class="mb-0">
-                    Not an admin?&nbsp;&nbsp;
-                    <a href="/registerforadmin">Register Here</a>
+                <div class="col-12 col-md-8 mx-auto text-center text-md-start text-lg-center">
+                  <h6>
+                    &nbsp;&nbsp;Not Registered yet?&nbsp;&nbsp;
+                    <a href="/Student">Register Here</a>
                   </h6>
                 </div>
               </form>
@@ -101,4 +65,4 @@ const Admin = (props) => {
     </div>
   );
 };
-export default Admin;
+export default StudentLogin;

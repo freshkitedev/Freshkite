@@ -10,21 +10,19 @@ const Payment = () => {
   console.log(amntopay);
   const navigate = useNavigate();
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const data = {
       amntopay: amntopay,
       _id: values._id,
     };
-    axios.post("http://localhost:9020/api/pay/payfees/", data).then((result) => {
-     
-    
+    axios
+      .post("http://localhost:9020/api/pay/payfees/", data)
+      .then((result) => {
         alert(
           "Payment SuccessFull You will be redirected to Dashboard in 5 seconds"
         );
-        setTimeout(()=>navigate("/dashboard"),3000)
-    
-    }
-    );
+        setTimeout(() => navigate("/dashboard"), 3000);
+      });
   };
 
   return (
@@ -39,7 +37,7 @@ const Payment = () => {
               >
                 Payment
               </h1>
-              <form onSubmit={(e)=>handleSubmit(e)}>
+              <form onSubmit={(e) => handleSubmit(e)}>
                 <div class="form-floating mb-2">
                   <input
                     type="text"
@@ -97,9 +95,8 @@ const Payment = () => {
                 </div>
                 <div class="d-grid">
                   <button
-                    class="btn btn-success btn-login text-uppercase fw-bold" 
+                    class="btn btn-success btn-login text-uppercase fw-bold"
                     type="submit"
-                   
                   >
                     Pay Fee
                   </button>
