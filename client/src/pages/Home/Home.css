@@ -1,13 +1,6 @@
-.homebtn{
-  text-align: center;
-  margin-top: 200px;
-}
-
-.btnhome{
-  margin-left: 20px;
-  padding: 15px;
-  color: rgb(251, 245, 245);
-  background-color: rgb(0, 128, 255);
-  border-radius: 3px;
-  border: none;
+.vh-100 {
+  background-image: url("https://static.wixstatic.com/media/81b34d_6bef526df6fd4f148b7882daca438dc9~mv2.jpeg");
+  background-position: center top 100%;
+  background-repeat: no-repeat;
+  background-size: 900px;
 }

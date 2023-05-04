@@ -1,62 +1,142 @@
 body {
-    margin: 0;
-    font-family: "Lato", sans-serif;
-  }
-  
-  .search-box{
-    margin-top: 20px;
-    margin-left: 25%;
-    margin-bottom: 30px;
-    height: 50px;
-    width: 50%;
-  }
-  
+  margin: 0;
+  font-family: "Lato", sans-serif;
+  background: #ffffff;
+
+
+}
+
+.search-box {
+  margin-top: 20px;
+  margin-bottom: 30px;
+  height: 50px;
+  width: 50%;
+}
+
+.sidebar {
+  margin: 0;
+  padding: 0;
+  width: 200px;
+  background-color: #000000;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+}
+
+.sidebar a {
+  display: block;
+  color: rgb(20, 19, 19);
+  padding: 16px;
+  text-decoration: none;
+}
+
+.sidebar a.active {
+  background-color: #4040c0;
+  color: white;
+}
+
+.sidebar a:hover:not(.active) {
+  background-color: #afa7a7;
+  color: white;
+}
+
+div.content {
+  margin-left: 200px;
+  padding: 1px 16px;
+  height: 1000px;
+}
+
+@media screen and (max-width: 700px) {
   .sidebar {
-    margin: 0;
-    padding: 0;
-    width: 200px;
-    background-color: #f1f1f1;
-    position: fixed;
-    height: 100%;
-    overflow: auto;
+    width: 100%;
+    height: auto;
+    position: relative;
   }
-  
   .sidebar a {
-    display: block;
-    color: rgb(20, 19, 19);
-    padding: 16px;
-    text-decoration: none;
+    float: left;
   }
-   
-  .sidebar a.active {
-    background-color: #104edf;
-    color: white;
-  }
-  
-  .sidebar a:hover:not(.active) {
-    background-color: #555;
-    color: white;
-  }
-  
   div.content {
-    margin-left: 200px;
-    padding: 1px 16px;
-    height: 1000px;
+    margin-left: 0;
   }
+}
+
+@media screen and (max-width: 400px) {
+  .sidebar a {
+    text-align: center;
+    float: none;
+  }
+}
+
+.content {
+  background-color: #dfdbdb;
+  text-align: center;
+  color: rgb(0, 0, 0);
+  background-image: url("https://img.freepik.com/premium-vector/back-school-study-education-knowledge-learning-concept-hand-drawn-pupils-classroom-during-lesson-concept-sketch_160308-1151.jpg?w=740");
+  background-size: 90%;
+}
+
+h2 {
+  margin-top: 200px;
+}
+
+.form {
+  position: relative;
+}
+
+.form-input {
+  height: 55px;
+  text-indent: 33px;
+  border-radius: 10px;
+}
+
+.form-input:focus {
+  box-shadow: none;
+  border: none;
+}
+
+img {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  width: 200px;
+  height: 60px;
+  border-radius:35px;
+  margin-left: 5px;
+}
+
+.main {
+  width: 230px;
+  height: 230px;
+  border: 2px solid #0e0606;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  border-radius: 50%;
+}
+
+.circle {
+  width: 30px;
+  height: 30px;
+  background: rgb(47, 113, 235);
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  margin: auto;
+  animation: circle 6s linear infinite;
   
-  @media screen and (max-width: 700px) {
-    .sidebar {
-      width: 100%;
-      height: auto;
-      position: relative;
-    }
-    .sidebar a {float: left;}
-    div.content {margin-left: 0;}
+}
+
+@keyframes circle {
+  0% {
+    transform: rotate(0deg) translate(-165px) rotate(0deg);
   }
-  
-  @media screen and (max-width: 400px) {
-    .sidebar a {
-      text-align: center;
-      float: none;
-    }
+  100% {
+    transform: rotate(360deg) translate(-165px) rotate(-360deg);
   }
+}

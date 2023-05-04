@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import css from "./AddStudent.css";
+import  "./AddStudent.css";
 
 export const AddStudent = () => {
   const [name, setName] = useState("");
@@ -34,21 +34,45 @@ export const AddStudent = () => {
   return (
     <body className="body">
       <div class="sidebar">
-        <a href="/dashboard">Dashboard</a>
-        <a href="/payfee">Pay Fee</a>
-        <a href="/addStudent" class="active">
-          Add Student
+        <img
+          class="img-fluid"
+          src="https://static.wixstatic.com/media/81b34d_d1ef6ebfe8f5483c8097e7905ab82bb2~mv2.jpg/v1/fill/w_600,h_192,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/freshkite_small.jpg"
+          alt="none"
+        ></img>
+        <a href="/dashboard">
+          Dashboard&nbsp;
+          <i class="bi bi-speedometer2"></i>
         </a>
-
-        <a href="/addCourse">Course</a>
-        <a href="/Addfee">Add Fees </a>
+        <a href="/payfee">
+          Pay Fee&nbsp;
+          <i class="bi bi-credit-card"></i>
+        </a>
+        <a class="active" href="/addStudent">
+          Add Student&nbsp;
+          <i class="bi bi-person-add"></i>
+        </a>
+        <a href="/addCourse">
+          Course&nbsp;
+          <i class="bi bi-gear-wide-connected"></i>
+        </a>
+        <a href="/Addfee">
+          Add Fees&nbsp; <i class="bi bi-plus-circle-dotted"></i>
+        </a>
+        <a href="/excel">
+          Excel&nbsp;<i class="bi bi-file-earmark-spreadsheet"></i>
+        </a>
+        <a href="/">
+          Logout &nbsp;
+          <i class="bi bi-box-arrow-right"></i>
+        </a>
       </div>
+
       <div class="content">
         <div class="row">
           <div class="col-sm-3 col-md-7 col-lg-5 mx-auto ">
             <div
-              class="card border-0 shadow rounded-4 my-4"
-              style={{ background: "#2399d9", color: "#000000" }}
+              class=" bg-light card border-0 shadow rounded-4 my-4"
+              style={{ background: "	rgb(255,255,255)", color: "#000000" }}
             >
               <div class="card-body p-4 p-sm-4">
                 <form onSubmit={handleSubmit}>
@@ -75,7 +99,10 @@ export const AddStudent = () => {
                       value={course}
                       aria-label=".form-select-lg example"
                     >
-                      <option selected value="BE"> BE</option>
+                      <option selected value="BE">
+                        {" "}
+                        BE
+                      </option>
                       <option value="B.Sc">B.Sc</option>
                       <option value="12th">12th</option>
                       <option value="BA">BA</option>
@@ -131,9 +158,10 @@ export const AddStudent = () => {
                     />
                     <label for="floatingPassword">Password</label>
                   </div>
+                  <br></br>
                   <div class="d-grid">
                     <button
-                      class="btn btn-success btn-login text-uppercase fw-bold"
+                      class="btn btn-outline-dark btn-login text-uppercase fw-bold"
                       type="submit"
                       onClick={(e) => handleSubmit(e)}
                     >

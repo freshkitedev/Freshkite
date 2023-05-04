@@ -1,7 +1,6 @@
-import React from "react";
-import "./Student.css";
 
-const Student = () => {
+
+const RegisterForAdmin = () => {
   return (
     <div class="container">
       <div class="row">
@@ -9,10 +8,9 @@ const Student = () => {
           <div class="card border-0 shadow rounded-3 my-5">
             <div class="card-body p-4 p-sm-5">
               <h5 class="card-title text-center mb-5 fw-light fs-5">
-                Student Registration Form{" "}
-                <a href="/">
-                  <i class="bi bi-house"></i>
-                </a>
+                Admin Registration Form <a href="/">
+        <i class="bi bi-house"></i>
+      </a>
               </h5>
               <form>
                 <div class="form-floating mb-3">
@@ -24,15 +22,7 @@ const Student = () => {
                   />
                   <label for="floatingInput">Name</label>
                 </div>
-                <div class="form-floating mb-3">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="floatingInput"
-                    placeholder="Course"
-                  />
-                  <label for="floatingPassword">Course</label>
-                </div>
+
                 <div class="form-floating mb-3">
                   <input
                     type="Number"
@@ -42,6 +32,7 @@ const Student = () => {
                   />
                   <label for="floatingPassword">Contact</label>
                 </div>
+
                 <div class="form-floating mb-3">
                   <input
                     type="email"
@@ -53,21 +44,21 @@ const Student = () => {
                 </div>
                 <div class="form-floating mb-3">
                   <input
-                    type="Password"
+                    type="password"
                     class="form-control"
                     id="floatingInput"
-                    placeholder="Email"
+                    placeholder="password"
                   />
                   <label for="floatingPassword">Password</label>
                 </div>
                 <div class="form-floating mb-3">
                   <input
-                    type="Password"
+                    type="password"
                     class="form-control"
                     id="floatingInput"
-                    placeholder="Email"
+                    placeholder="Repeat password"
                   />
-                  <label for="floatingPassword">Repeat password</label>
+                  <label for="floatingPassword">Repeat Password</label>
                 </div>
                 <div class="d-grid">
                   <button
@@ -78,9 +69,9 @@ const Student = () => {
                   </button>
                 </div>
                 <br></br>
-                <div class="col-12 col-sm-6 col-lg-7 mx-auto text-center text-sm-start text-lg-end mt-4 mt-sm-0">
+                <div class="col-7 mx-auto">
                   <h6>
-                    Already Registered? <a href="/studentlogin">Login Here</a>
+                    Already Registered?  &nbsp;<a href="/Admin">Login here</a>
                   </h6>
                 </div>
               </form>
@@ -91,4 +82,5 @@ const Student = () => {
     </div>
   );
 };
-export default Student;
+
+export default RegisterForAdmin;

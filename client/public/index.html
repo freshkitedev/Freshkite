@@ -11,6 +11,8 @@
       href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
+
+    <link rel="stylesheet" href="style.css" />
     <style>
       * {
         font-family: "Open Sans", sans-serif;
@@ -20,7 +22,16 @@
     <title>React App</title>
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div class="preloader-wrapper">
+      <div
+        class="spinner-border spinner-border-size-sm text-primary"
+        role="status"
+      >
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+
     <div id="root"></div>
+    <script src="js/main.js"></script>
   </body>
 </html>
