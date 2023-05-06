@@ -1,4 +1,6 @@
+import { Link } from "react-router-dom";
 import "./StudentLogin.css";
+
 
 const StudentLogin = () => {
   return (
@@ -9,9 +11,9 @@ const StudentLogin = () => {
             <div class="card-body p-4 p-sm-5">
               <h5 class="card-title text-center mb-5 fw-light fs-5">
                 Student's Sign In{" "}
-                <a href="/">
+                <Link to="/">
                   <i class="bi bi-house"></i>
-                </a>
+                </Link>
               </h5>
               <form>
                 <div class="form-floating mb-3">
@@ -35,14 +37,15 @@ const StudentLogin = () => {
                   <label for="floatingPassword">Password</label>
                 </div>
                 <div id="reset" class="text-center text-md-end">
-                  <a href="/resetstudent">
+                  <Link to="/resetstudent">
                     <small>Forgot Your Password</small>
-                  </a>
+                  </Link>
                 </div>
 
                 <br></br>
 
                 <div class="d-grid">
+                  
                   <button
                     class="btn btn-primary btn-login text-uppercase fw-bold"
                     type="submit"
@@ -54,7 +57,7 @@ const StudentLogin = () => {
                 <div class="col-12 col-md-8 mx-auto text-center text-md-start text-lg-center">
                   <h6>
                     &nbsp;&nbsp;Not Registered yet?&nbsp;&nbsp;
-                    <a href="/Student">Register Here</a>
+                    <Link to="/Student">Register Here</Link>
                   </h6>
                 </div>
               </form>

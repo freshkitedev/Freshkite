@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import "bootstrap";
 import axios from "axios";
 import "./Studentlist.css";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Adash = () => {
   const [data, setData] = useState([]);
@@ -40,32 +40,32 @@ const Adash = () => {
           src="https://static.wixstatic.com/media/81b34d_d1ef6ebfe8f5483c8097e7905ab82bb2~mv2.jpg/v1/fill/w_600,h_192,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/freshkite_small.jpg"
           alt="none"
         ></img>
-        <a href="/dashboard">
+        <Link to="/dashboard">
           Dashboard&nbsp;
-          <i class="bi bi-speedometer2"></i>
-        </a>
-        <a class="active" href="/payfee">
+          <i className="bi bi-speedometer2"></i>
+        </Link>
+        <Link className="active" to="/payfee">
           Pay Fee&nbsp;
-          <i class="bi bi-credit-card"></i>
-        </a>
-        <a href="/addStudent">
+          <i className="bi bi-credit-card"></i>
+        </Link>
+        <Link to="/addStudent">
           Add Student&nbsp;
-          <i class="bi bi-person-add"></i>
-        </a>
-        <a href="/addCourse">
+          <i className="bi bi-person-add"></i>
+        </Link>
+        <Link to="/addCourse">
           Course&nbsp;
-          <i class="bi bi-gear-wide-connected"></i>
-        </a>
-        <a href="/Addfee">
-          Add Fees&nbsp; <i class="bi bi-plus-circle-dotted"></i>
-        </a>
-        <a href="/excel">
-          Excel&nbsp;<i class="bi bi-file-earmark-spreadsheet"></i>
-        </a>
-        <a href="/">
+          <i className="bi bi-gear-wide-connected"></i>
+        </Link>
+        <Link to="/Addfee">
+          Add Fees&nbsp; <i className="bi bi-plus-circle-dotted"></i>
+        </Link>
+        <Link to="/excel">
+          Excel&nbsp;<i className="bi bi-file-earmark-spreadsheet"></i>
+        </Link>
+        <Link to="/">
           Logout &nbsp;
-          <i class="bi bi-box-arrow-right"></i>
-        </a>
+          <i className="bi bi-box-arrow-right"></i>
+        </Link>
       </div>
       <div class="content">
         <div className="row">
