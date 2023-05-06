@@ -1,5 +1,6 @@
 import React from "react";
 import "./Student.css";
+import { Link } from "react-router-dom";
 
 const Student = () => {
   return (
@@ -10,9 +11,9 @@ const Student = () => {
             <div class="card-body p-4 p-sm-5">
               <h5 class="card-title text-center mb-5 fw-light fs-5">
                 Student Registration Form{" "}
-                <a href="/">
+                <Link to="/">
                   <i class="bi bi-house"></i>
-                </a>
+                </Link>
               </h5>
               <form>
                 <div class="form-floating mb-3">
@@ -80,7 +81,7 @@ const Student = () => {
                 <br></br>
                 <div class="col-12 col-sm-6 col-lg-7 mx-auto text-center text-sm-start text-lg-end mt-4 mt-sm-0">
                   <h6>
-                    Already Registered? <a href="/studentlogin">Login Here</a>
+                    Already Registered? <Link to ="/studentlogin">Login Here</Link>
                   </h6>
                 </div>
               </form>

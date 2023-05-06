@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import axios from "axios";
-import Student from "../Student/Student";
+
 import "./Admin.css";
-import { Navigate, useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+
 import "react-toastify/dist/ReactToastify.css";
+import { Link } from "react-router-dom";
 
 const Admin = (props) => {
   const [name, setuser] = useState("");
@@ -40,9 +41,9 @@ const Admin = (props) => {
             <div class="card-body p-4 p-sm-5">
               <h5 class="card-title text-center mb-5 fw-light fs-5">
                 Admin's Sign In{" "}
-                <a href="/">
+                <Link to="/">
                   <i class="bi bi-house"></i>
-                </a>
+                </Link>
               </h5>
               <form>
                 <div class="form-floating mb-3">
@@ -70,9 +71,7 @@ const Admin = (props) => {
                   <label for="floatingPassword">Password</label>
                 </div>
                 <div class="d-flex justify-content-end">
-                  <a href="/resetadmin">
-                    <small>Forgot Your Password</small>
-                  </a>
+                  <Link to="/forgotpassword">Forgot Your Password</Link>
                 </div>
 
                 <br></br>
@@ -90,7 +89,7 @@ const Admin = (props) => {
                 <div class="col-12 col-md-7 mx-auto text-center text-md-end">
                   <h6 class="mb-0">
                     Not an admin?&nbsp;&nbsp;
-                    <a href="/registerforadmin">Register Here</a>
+                    <Link to="/registerforadmin">Register Here</Link>
                   </h6>
                 </div>
               </form>

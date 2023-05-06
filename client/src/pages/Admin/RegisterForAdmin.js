@@ -1,4 +1,4 @@
-
+import { Link } from "react-router-dom";
 
 const RegisterForAdmin = () => {
   return (
@@ -8,9 +8,10 @@ const RegisterForAdmin = () => {
           <div class="card border-0 shadow rounded-3 my-5">
             <div class="card-body p-4 p-sm-5">
               <h5 class="card-title text-center mb-5 fw-light fs-5">
-                Admin Registration Form <a href="/">
-        <i class="bi bi-house"></i>
-      </a>
+                Admin Registration Form{" "}
+                <Link to="/">
+                  <i class="bi bi-house"></i>
+                </Link>
               </h5>
               <form>
                 <div class="form-floating mb-3">
@@ -71,7 +72,8 @@ const RegisterForAdmin = () => {
                 <br></br>
                 <div class="col-7 mx-auto">
                   <h6>
-                    Already Registered?  &nbsp;<a href="/Admin">Login here</a>
+                    Already Registered? &nbsp;
+                    <Link to="/Admin">Login here</Link>
                   </h6>
                 </div>
               </form>

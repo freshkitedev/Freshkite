@@ -14,6 +14,9 @@ import StudentLogin from "./pages/Student/StudentLogin";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { Excel } from "./pages/Admin/Excel";
+import { Forgotpassword } from "./pages/Forgotpassword/Forgotpassword";
+import { Enterotp } from "./pages/Forgotpassword/Enterotp";
+import { NewPassword } from "./pages/Forgotpassword/NewPassword";
 
 function App() {
   return (
@@ -31,6 +34,9 @@ function App() {
         <Route path="/registerforadmin" element={<RegisterForAdmin />} />
         <Route path="/studentlogin" element={<StudentLogin />} />
         <Route path="/excel" element={<Excel />} />
+        <Route path="/forgotpassword" element={<Forgotpassword/>} />
+        <Route path="/enterotp" element={<Enterotp/>} />
+        <Route path="/Newpasscode" element={<NewPassword/>} />
       </Routes>
     </BrowserRouter>
   );
