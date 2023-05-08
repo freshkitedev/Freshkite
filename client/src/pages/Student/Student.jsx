@@ -1,8 +1,75 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Student.css";
 import { Link } from "react-router-dom";
+import zxcvbn from "zxcvbn";
 
 const Student = () => {
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [passwordMatch, setPasswordMatch] = useState(true);
+  const [contact, setContact] = useState("");
+  const [validContact, setValidContact] = useState(true);
+  const [contactError, setContactError] = useState("");
+
+  const passwordScore = zxcvbn(password).score;
+  let passwordStrength = "Weak";
+  let passwordColor = "bg-danger";
+  if (passwordScore === 3) {
+    passwordStrength = "Strong";
+    passwordColor = "bg-warning";
+  } else if (passwordScore === 4) {
+    passwordStrength = "Very Strong";
+    passwordColor = "bg-success";
+  } else if (password) {
+    passwordStrength = "Medium";
+    passwordColor = "bg-info";
+  }
+
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+    setPasswordMatch(event.target.value === confirmPassword);
+  };
+
+  const handleConfirmPasswordChange = (event) => {
+    setConfirmPassword(event.target.value);
+    setPasswordMatch(event.target.value === password);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (password === confirmPassword && validContact) {
+      // submit form
+    } else {
+      if (password !== confirmPassword) {
+        setPasswordMatch(false);
+      }
+      if (!validContact) {
+        setContactError("Please enter a valid 10-digit contact number");
+      }
+    }
+  };
+
+  const courses = ["BE", "B.Sc", "B.Com", "12th"];
+
+  const [selectedCourse, setSelectedCourse] = useState("");
+
+  const handleCourseChange = (event) => {
+    setSelectedCourse(event.target.value);
+  };
+  const handleContactChange = (event) => {
+    const contactValue = event.target.value;
+    // check if the entered value is a number and has 10 digits
+    if (!isNaN(contactValue) && contactValue.length === 10) {
+      setContact(contactValue);
+      setValidContact(true);
+      setContactError("");
+    } else {
+      setContact(contactValue);
+      setValidContact(false);
+      setContactError("Please enter a valid 10-digit contact number");
+    }
+  };
+
   return (
     <div class="container">
       <div class="row">
@@ -15,7 +82,7 @@ const Student = () => {
                   <i class="bi bi-house"></i>
                 </Link>
               </h5>
-              <form>
+              <form onSubmit={handleSubmit}>
                 <div class="form-floating mb-3">
                   <input
                     type="text"
@@ -26,54 +93,90 @@ const Student = () => {
                   <label for="floatingInput">Name</label>
                 </div>
                 <div class="form-floating mb-3">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="floatingInput"
-                    placeholder="Course"
-                  />
-                  <label for="floatingPassword">Course</label>
+                  <select
+                    class="form-select"
+                    id="floatingSelect"
+                    value={selectedCourse}
+                    onChange={handleCourseChange}
+                  >
+                    <option value="" disabled selected>
+                      Choose your course
+                    </option>
+                    {courses.map((course) => (
+                      <option key={course} value={course}>
+                        {course}
+                      </option>
+                    ))}
+                  </select>
+                  <label for="floatingSelect">Course</label>
                 </div>
-                <div class="form-floating mb-3">
+
+                <div className="form-floating mb-3">
                   <input
-                    type="Number"
-                    class="form-control"
-                    id="floatingInput"
+                    type="tel"
+                    className={`form-control ${
+                      validContact ? "" : "is-invalid"
+                    }`}
+                    id="contact"
                     placeholder="Contact"
+                    value={contact}
+                    onChange={handleContactChange}
                   />
-                  <label for="floatingPassword">Contact</label>
+                  <label htmlFor="contact">Contact</label>
+                  {!validContact && (
+                    <div className="invalid-feedback">{contactError}</div>
+                  )}
                 </div>
+
                 <div class="form-floating mb-3">
                   <input
                     type="email"
                     class="form-control"
                     id="floatingInput"
                     placeholder="Email"
+                    required
+                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
                   />
-                  <label for="floatingPassword">Email</label>
+                  <label for="floatingInput">Email</label>
+                </div>
+
+                <div className="form-floating mb-3">
+                  <input
+                    type="password"
+                    className="form-control"
+                    id="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={handlePasswordChange}
+                  />
+                  <label htmlFor="password">Password</label>
+                  {password && (
+                    <div
+                      className={`text-${passwordColor} password-strength-indicator`}
+                    >
+                      {passwordStrength}
+                    </div>
+                  )}
                 </div>
                 <div class="form-floating mb-3">
                   <input
                     type="Password"
                     class="form-control"
-                    id="floatingInput"
-                    placeholder="Email"
+                    id="confirmPassword"
+                    placeholder="Confirm password"
+                    value={confirmPassword}
+                    onChange={handleConfirmPasswordChange}
                   />
-                  <label for="floatingPassword">Password</label>
-                </div>
-                <div class="form-floating mb-3">
-                  <input
-                    type="Password"
-                    class="form-control"
-                    id="floatingInput"
-                    placeholder="Email"
-                  />
-                  <label for="floatingPassword">Repeat password</label>
+                  <label for="confirmPassword">Repeat password</label>
+                  {!passwordMatch && (
+                    <div class="text-danger">Passwords do not match</div>
+                  )}
                 </div>
                 <div class="d-grid">
                   <button
                     class="btn btn-primary btn-login text-uppercase fw-bold"
                     type="submit"
+                    disabled={!passwordMatch}
                   >
                     Register
                   </button>
@@ -81,7 +184,8 @@ const Student = () => {
                 <br></br>
                 <div class="col-12 col-sm-6 col-lg-7 mx-auto text-center text-sm-start text-lg-end mt-4 mt-sm-0">
                   <h6>
-                    Already Registered? <Link to ="/studentlogin">Login Here</Link>
+                    Already Registered?{" "}
+                    <Link to="/studentlogin">Login Here</Link>
                   </h6>
                 </div>
               </form>

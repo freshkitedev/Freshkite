@@ -6,4 +6,28 @@
     padding: 0.75rem 1rem;
   }
   
+  .password-strength-indicator {
+    font-size: 14px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    color: white;
+    text-align: center;
+    margin-top: 5px;
+  }
+  
+  .bg-danger {
+    background-color: #dc3545;
+  }
+  
+  .bg-warning {
+    background-color: #ffc107;
+  }
+  
+  .bg-success {
+    background-color: #28a745;
+  }
+  
+  .bg-info {
+    background-color: #17a2b8;
+  }
   
