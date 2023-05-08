@@ -70,7 +70,7 @@ const RegisterForAdmin = () => {
                   </button>
                 </div>
                 <br></br>
-                <div class="col-7 mx-auto">
+                <div class="d-flex justify-content-center">
                   <h6>
                     Already Registered? &nbsp;
                     <Link to="/Admin">Login here</Link>

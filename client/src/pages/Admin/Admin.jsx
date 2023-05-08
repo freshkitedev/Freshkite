@@ -96,8 +96,8 @@ const Admin = (props) => {
                 </div>
 
                 <br></br>
-                <div class="col-12 col-md-7 mx-auto text-center text-md-end">
-                  <h6 class="mb-0">
+                <div class="d-flex justify-content-center">
+                  <h6>
                     Not an admin?&nbsp;&nbsp;
                     <Link to="/registerforadmin">Register Here</Link>
                   </h6>

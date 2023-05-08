@@ -6,7 +6,7 @@ const StudentSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-  
+
     course: {
       type: String,
       required: true,
@@ -20,7 +20,7 @@ const StudentSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
-    phone: {
+    contact: {
         type: String,
         required: true,
         unique: true,
