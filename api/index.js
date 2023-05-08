@@ -17,7 +17,9 @@ dotenv.config();
 const connect = async () => {
   try {
     await mongoose.connect(process.env.MONGO);
-    console.log("Connected to mongoDB."); 
+    console.log("Connected to mongoDB.");
+	  console.log("connected to cloud mongodb");
+	  console.log("db connection establised");
   } catch (error) {
     throw error;
   }
@@ -25,7 +27,6 @@ const connect = async () => {
 
 mongoose.connection.on("disconnected", () => {
   console.log("mongoDB disconnected!"); 
-  console.log("cloud mongodb disconnected try again");
 });
 app.use(cookieParser())
 app.use(express.json());
