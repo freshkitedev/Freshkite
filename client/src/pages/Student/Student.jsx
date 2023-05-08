@@ -11,6 +11,8 @@ const Student = () => {
   const [validContact, setValidContact] = useState(true);
   const [contactError, setContactError] = useState("");
 
+  const [selectedCourse, setSelectedCourse] = useState("");
+
   const passwordScore = zxcvbn(password).score;
   let passwordStrength = "Weak";
   let passwordColor = "bg-danger";
@@ -48,10 +50,12 @@ const Student = () => {
       }
     }
   };
-
-  const courses = ["BE", "B.Sc", "B.Com", "12th"];
-
-  const [selectedCourse, setSelectedCourse] = useState("");
+  const courses = [
+    { name: "BE", fees: 40000 },
+    { name: "B.Sc", fees: 50000 },
+    { name: "B.Com", fees: 6000 },
+    { name: "12th", fees: 100000 },
+  ];
 
   const handleCourseChange = (event) => {
     setSelectedCourse(event.target.value);
@@ -92,9 +96,9 @@ const Student = () => {
                   />
                   <label for="floatingInput">Name</label>
                 </div>
-                <div class="form-floating mb-3">
+                <div className="form-floating mb-3">
                   <select
-                    class="form-select"
+                    className="form-select"
                     id="floatingSelect"
                     value={selectedCourse}
                     onChange={handleCourseChange}
@@ -103,12 +107,12 @@ const Student = () => {
                       Choose your course
                     </option>
                     {courses.map((course) => (
-                      <option key={course} value={course}>
-                        {course}
+                      <option key={course.name} value={course.name}>
+                        {course.name}
                       </option>
                     ))}
                   </select>
-                  <label for="floatingSelect">Course</label>
+                  <label htmlFor="floatingSelect">Course</label>
                 </div>
 
                 <div className="form-floating mb-3">
@@ -127,6 +131,23 @@ const Student = () => {
                     <div className="invalid-feedback">{contactError}</div>
                   )}
                 </div>
+
+                {selectedCourse && (
+                  <div className="form-floating mb-3">
+                    <input
+                      type="number"
+                      className="form-control"
+                      id="fees"
+                      placeholder="Fees"
+                      value={
+                        courses.find((course) => course.name === selectedCourse)
+                          .fees
+                      }
+                      readOnly
+                    />
+                    <label htmlFor="fees">Fees</label>
+                  </div>
+                )}
 
                 <div class="form-floating mb-3">
                   <input
@@ -182,7 +203,7 @@ const Student = () => {
                   </button>
                 </div>
                 <br></br>
-                <div class="col-12 col-sm-6 col-lg-7 mx-auto text-center text-sm-start text-lg-end mt-4 mt-sm-0">
+                <div class="d-flex justify-content-center">
                   <h6>
                     Already Registered?{" "}
                     <Link to="/studentlogin">Login Here</Link>

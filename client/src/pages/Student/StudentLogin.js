@@ -54,7 +54,7 @@ const StudentLogin = () => {
                   </button>
                 </div>
                 <br></br>
-                <div class="col-12 col-md-8 mx-auto text-center text-md-start text-lg-center">
+                <div class="d-flex justify-content-center">
                   <h6>
                     &nbsp;&nbsp;Not Registered yet?&nbsp;&nbsp;
                     <Link to="/Student">Register Here</Link>
