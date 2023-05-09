@@ -8,9 +8,27 @@ export const AddStudent = () => {
   const [name, setName] = useState("");
   const [course, setCourse] = useState("");
   const [year, setYear] = useState("");
-  const [phone, setPhone] = useState("");
+  const [contact, setContact] = useState("");
+  const [validContact, setValidContact] = useState(true);
+  const [contactError, setContactError] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+
+  const handleContactChange = (event) => {
+    const contactValue = event.target.value;
+    // check if the entered value is a number and has 10 digits
+    if (!isNaN(contactValue) && contactValue.length === 10) {
+      setContact(contactValue);
+      setValidContact(true);
+      setContactError("");
+    } else {
+      setContact(contactValue);
+      setValidContact(false);
+      setContactError("Please enter a valid 10-digit contact number");
+    }
+  };
+
 
   const navigate = useNavigate();
   const handleSubmit = (e) => {
@@ -21,7 +39,7 @@ export const AddStudent = () => {
       year: year,
       email: email,
       password: password,
-      phone: phone,
+      phone: contact,
     };
     axios
       .post("http://localhost:9020/api/admin/createstudent", data)
@@ -123,18 +141,22 @@ export const AddStudent = () => {
                     />
                     <label for="floatingPassword">Year</label>
                   </div>
-                  <div class="form-floating mb-2">
-                    <input
-                      type="number"
-                      class="form-control"
-                      id="floatingPassword"
-                      onChange={(e) => {
-                        setPhone(e.target.value);
-                      }}
-                      value={phone}
-                    />
-                    <label for="floatingPassword">Phone</label>
-                  </div>
+                  <div className="form-floating mb-3">
+                  <input
+                    type="tel"
+                    className={`form-control ${
+                      validContact ? "" : "is-invalid"
+                    }`}
+                    id="contact"
+                    
+                    value={contact}
+                    onChange={handleContactChange}
+                  />
+                  <label htmlFor="contact">Contact</label>
+                  {!validContact && (
+                    <div className="invalid-feedback">{contactError}</div>
+                  )}
+                </div>
                   <div class="form-floating mb-2">
                     <input
                       type="email"

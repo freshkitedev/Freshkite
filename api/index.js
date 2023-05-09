@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import authRoute from "./routes/auth.js";
 import adminRoute from "./routes/admin.js";
 import studentsRoute from "./routes/students.js";
+
 import coursesRoute from "./routes/courses.js";
 import feeRoute from "./routes/fee.js";
 import payRoute from "./routes/payfees.js";
@@ -13,6 +14,10 @@ import cors from "cors";
 
 const app = express();
 dotenv.config(); 
+
+
+
+
 
 const connect = async () => {
   try {
@@ -37,6 +42,7 @@ app.use("/api/courses", coursesRoute);
 app.use("/api/auth", authRoute); 
 app.use("/api/fees", feeRoute);
 app.use("/api/pay", payRoute);
+
 
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;

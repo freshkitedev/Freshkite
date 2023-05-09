@@ -44,3 +44,30 @@ export const getStudents = async (req,res,next)=>{
     next(err);
   }
 }
+
+
+
+
+
+
+export const Dashget = async (req, res) => {
+  try {
+    const count = await Student.countDocuments();
+    console.log({count})
+    res.send({ count });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server error");
+  }
+};
+
+
+export const addStudent = async (req, res, next) => {
+  try {
+    const newStudent = new Student(req.body);
+    await newStudent.save();
+    res.status(201).json(newStudent);
+  } catch (err) {
+    next(err);
+  }
+};
