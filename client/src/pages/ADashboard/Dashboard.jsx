@@ -2,7 +2,24 @@ import React from "react";
 import "./Studentlist.css";
 import "./dashboard.css";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { useState, useEffect } from "react";
 const Dashboard = () => {
+  const [studentsCount, setStudentsCount] = useState(0);
+
+  useEffect(() => {
+    const getStudentsCount = async () => {
+      try {
+        const response = await axios.get("/api/students/count");
+        setStudentsCount(response.data.count);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    getStudentsCount();
+  }, []);
+
   return (
     <body>
       <div class="sidebar">
@@ -40,7 +57,7 @@ const Dashboard = () => {
       </div>
       <div class="content">
         <div class="main align-content-center">
-          <div class="circle">22</div>
+          <h1>Number of Students: {studentsCount}</h1>
         </div>
       </div>
     </body>

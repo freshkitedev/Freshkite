@@ -37,7 +37,7 @@ const StudentLogin = () => {
                   <label for="floatingPassword">Password</label>
                 </div>
                 <div id="reset" class="text-center text-md-end">
-                  <Link to="/resetstudent">
+                  <Link to="/forgotpassword">
                     <small>Forgot Your Password</small>
                   </Link>
                 </div>
