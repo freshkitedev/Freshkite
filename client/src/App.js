@@ -17,6 +17,7 @@ import { Excel } from "./pages/Admin/Excel";
 import { Forgotpassword } from "./pages/Forgotpassword/Forgotpassword";
 import { Enterotp } from "./pages/Forgotpassword/Enterotp";
 import { NewPassword } from "./pages/Forgotpassword/NewPassword";
+import StudentDashboard from "./pages/Student/StudentDashboard";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
         <Route path="/forgotpassword" element={<Forgotpassword/>} />
         <Route path="/enterotp" element={<Enterotp/>} />
         <Route path="/Newpasscode" element={<NewPassword/>} />
+        <Route path="/studentdashboard" element={<StudentDashboard/>} />
       </Routes>
     </BrowserRouter>
   );
