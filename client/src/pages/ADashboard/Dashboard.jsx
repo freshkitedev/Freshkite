@@ -4,13 +4,17 @@ import "./dashboard.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useState, useEffect } from "react";
+
+
+
 const Dashboard = () => {
   const [studentsCount, setStudentsCount] = useState(0);
+
 
   useEffect(() => {
     const getStudentsCount = async () => {
       try {
-        const response = await axios.get("/api/students/count");
+        const response = await axios.get("http://localhost:9020/api/students/courses/count");
         setStudentsCount(response.data.count);
       } catch (error) {
         console.error(error);
@@ -55,9 +59,22 @@ const Dashboard = () => {
           <i className="bi bi-box-arrow-right"></i>
         </Link>
       </div>
-      <div class="content">
-        <div class="main align-content-center">
-          <h1>Number of Students: {studentsCount}</h1>
+      <div className="content">
+        <div className="d-flex justify-content-center align-items-center vh-100">
+          <h1
+            className="d-flex justify-content-center align-items-center "
+            style={{
+              backgroundColor: "grey",
+              borderRadius: "10px",
+              color: " lightblue",
+              width: "550px",
+              height: "100px",
+            }}
+          >
+            Total No. of Students: {studentsCount}
+          </h1>
+
+          
         </div>
       </div>
     </body>

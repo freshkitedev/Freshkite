@@ -5,8 +5,10 @@ import {
   deleteStudent,
   getStudent,
   getStudents,
-  Dashget
+  Dashget,
+  StudentDashboard
 } from "../controllers/student.js";
+
 
 import { verifyAdmin, verifyStudent } from "../utils/verifyToken.js";
 
@@ -28,6 +30,10 @@ router.get("/:id", getStudent);
 router.get("/", getStudents);
 
 // GET STUDENT COUNT
-router.get('/count', Dashget);
+router.get('/courses/count', Dashget);
+
+
+// Route to get student dashboard data
+router.get("/:studentId/dashboard", StudentDashboard);
 
 export default router;
