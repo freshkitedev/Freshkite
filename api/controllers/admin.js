@@ -4,6 +4,7 @@ import { createError } from "../utils/error.js";
 import jwt from "jsonwebtoken";
 import Student from "../models/Student.js";
 import Course from "../models/Course.js";
+import xlsx from "xlsx";
 
 export const register = async (req, res, next) => {
   try {
@@ -17,7 +18,7 @@ export const register = async (req, res, next) => {
     });
     await newAdmin.save();
     res.status(200).send("Admin has been created.");
- } catch (err) {
+  } catch (err) {
     next(err);
   }
 };
@@ -26,12 +27,10 @@ export const createstudent = async (req, res, next) => {
   try {
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(req.body.password, salt);
-    const course = await Course.findOne({ course: req.body.course})
+    const course = await Course.findOne({ course: req.body.course });
     if (!course) {
-      return next(createError(403, "Course not found"))
-    }
-    else 
-    {
+      return next(createError(403, "Course not found"));
+    } else {
       const newStudent = new Student({
         name: req.body.name,
         course: req.body.course,
@@ -39,21 +38,21 @@ export const createstudent = async (req, res, next) => {
         email: req.body.email,
         phone: req.body.phone,
         password: hash,
-        balance : course.fees
-      })
+        balance: course.fees,
+      });
       await newStudent.save();
-    } 
-    
+    }
+
     res.status(200).send("Student has been created.");
- } catch (err) {
+  } catch (err) {
     next(err);
   }
 };
 
-export const payFee = async(req,res) => {
-     const topay = req.body.topay 
-     const student = await Student.findById(req.body._id)
-}
+export const payFee = async (req, res) => {
+  const topay = req.body.topay;
+  const student = await Student.findById(req.body._id);
+};
 export const login = async (req, res, next) => {
   try {
     const admin = await Admin.findOne({ name: req.body.name });
@@ -80,5 +79,31 @@ export const login = async (req, res, next) => {
       .json({ details: { ...otherDetails }, isAdmin });
   } catch (err) {
     next(err);
+  }
+};
+
+export const Excel = async (req, res) => {
+  try {
+    const file = req.file;
+
+    if (!file) {
+      res.status(400).json({ message: "No file uploaded" });
+      return;
+    }
+
+    const workbook = xlsx.readFile(file.path);
+    const sheetName = workbook.SheetNames[0];
+    const sheetData = xlsx.utils.sheet_to_json(workbook.Sheets[sheetName]);
+
+    // Save each row in the sheet to the database
+    for (const row of sheetData) {
+      const student = new Student(row);
+      await student.save();
+    }
+
+    res.json({ message: "Data uploaded successfully" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Server error" });
   }
 };

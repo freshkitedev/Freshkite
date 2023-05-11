@@ -1,5 +1,6 @@
 import Fees from "../models/Fees.js";
 import Student from "../models/Student.js";
+import payfingfee from "../models/Payfee.js";
 
 export const updateStudent = async (req,res,next)=>{
   try {
@@ -42,5 +43,55 @@ export const getStudents = async (req,res,next)=>{
     res.status(200).json(students);
   } catch (err) {
     next(err);
+  }
+}
+
+
+
+
+
+//admin dashboard student's count 
+export const Dashget = async (req, res) => {
+  try {
+    const count = await Student.countDocuments();
+    res.send({ count });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server error");
+  }
+};
+
+
+export const addStudent = async (req, res, next) => {
+  try {
+    const newStudent = new Student(req.body);
+    await newStudent.save();
+    res.status(201).json(newStudent);
+  } catch (err) {
+    next(err);
+  }
+};
+
+
+export const StudentDashboard = async (req, res, next) => {
+  try {
+    const { studentId } = req.params;
+
+    // Find student by ID
+    const student = await Student.findById(studentId);
+
+    if (!student) {
+      return res.status(404).json({ message: "Student not found" });
+    }
+
+    // Find courses for the student
+    const courses = await Course.find({ students: studentId });
+
+    // Find payments for the student
+    const payments = await payfingfee.find({ student: studentId });
+
+    res.json({ student, courses, payments });
+  } catch (error) {
+    next(error);
   }
 }

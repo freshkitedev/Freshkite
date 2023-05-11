@@ -1,10 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
-import "../ADashboard/Studentlist.css";
 
-export const Excel = () => {
+export function Excel() {
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [uploadSuccess, setUploadSuccess] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
+
+  const onFileChange = (event) => {
+    setSelectedFile(event.target.files[0]);
+  };
+
+  const onSubmit = async (event) => {
+    event.preventDefault();
+
+    const formData = new FormData();
+    formData.append("file", selectedFile);
+
+    try {
+      const res = await axios.post(
+        "http://localhost:9020/api/admin/upload",
+        formData
+      );
+      console.log(res.data);
+      setUploadSuccess(true);
+      setErrorMessage(null);
+    } catch (err) {
+      console.log(err);
+      setErrorMessage(err.response.data.message);
+    }
+  };
+
   return (
-    <>
+    <body>
       <div class="sidebar">
         <img
           class="img-fluid"
@@ -38,12 +66,31 @@ export const Excel = () => {
           <i className="bi bi-box-arrow-right"></i>
         </Link>
       </div>
-
-      <div className="vh-100 d-flex justify-content-center align-items-center ms-3">
-        <div className="text-center">
-          <input type="file" />
+      <div className="content ">
+        <div className="d-flex justify-content-center align-items-center vh-100 ">
+          <div className="d-flex justify-content-center align-items-center ">
+            <form
+              onSubmit={onSubmit}
+              className="d-flex justify-content-center align-items-center shadow"
+              style={{
+                borderRadius: "20px",
+                backgroundColor: "lightblue",
+                width: "550px",
+                height: "100px",
+              }}
+            >
+              <input type="file" onChange={onFileChange} />
+              <button className="btn btn-primary" type="submit">
+                Upload
+              </button>
+            </form>{" "}
+            {uploadSuccess && (
+              <div className="text-primary">File uploaded successfully!</div>
+            )}
+            {errorMessage && <div className=" text-danger">{errorMessage}</div>}
+          </div>
         </div>
       </div>
-    </>
+    </body>
   );
-};
+}

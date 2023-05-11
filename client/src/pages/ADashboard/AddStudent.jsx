@@ -8,9 +8,25 @@ export const AddStudent = () => {
   const [name, setName] = useState("");
   const [course, setCourse] = useState("");
   const [year, setYear] = useState("");
-  const [phone, setPhone] = useState("");
+  const [phone, setContact] = useState("");
+  const [validContact, setValidContact] = useState(true);
+  const [contactError, setContactError] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const handleContactChange = (event) => {
+    const contactValue = event.target.value;
+    // check if the entered value is a number and has 10 digits
+    if (!isNaN(contactValue) && contactValue.length === 10) {
+      setContact(contactValue);
+      setValidContact(true);
+      setContactError("");
+    } else {
+      setContact(contactValue);
+      setValidContact(false);
+      setContactError("Please enter a valid 10-digit contact number");
+    }
+  };
 
   const navigate = useNavigate();
   const handleSubmit = (e) => {
@@ -89,51 +105,51 @@ export const AddStudent = () => {
                     />
                     <label for="floatingInput">Name</label>
                   </div>
-                  <div class="form-floating mb-2">
+                  <div className="form-floating mb-2">
                     <select
-                      type="text"
-                      class="form-control form-select mb-3"
-                      id="floatingPassword"
-                      onChange={(e) => {
-                        setCourse(e.target.value);
-                      }}
+                      className="form-control form-select mb-3"
+                      id="course"
                       value={course}
-                      aria-label=".form-select-lg example"
+                      onChange={(e) => setCourse(e.target.value)}
                     >
-                      <option selected value="BE">
-                        {" "}
-                        BE
+                      <option value="" disabled selected>
+                        Select a course
                       </option>
+                      <option value="BE">BE</option>
                       <option value="B.Sc">B.Sc</option>
-                      <option value="12th">12th</option>
+                      <option value="12">12th</option>
                       <option value="BA">BA</option>
                     </select>
-
-                    <label for="floatingPassword">Course</label>
+                    <label htmlFor="course">Course</label>
                   </div>
+
                   <div class="form-floating mb-2">
                     <input
-                      type="number"
+                      type="date"
                       class="form-control"
                       id="floatingPassword"
+                      min="1950-01-01" max="2070-12-31" step="1"
                       onChange={(e) => {
                         setYear(e.target.value);
                       }}
                       value={year}
                     />
-                    <label for="floatingPassword">Year</label>
+                    <label for="floatingPassword">Passed Out Year</label>
                   </div>
-                  <div class="form-floating mb-2">
+                  <div className="form-floating mb-3">
                     <input
-                      type="number"
-                      class="form-control"
-                      id="floatingPassword"
-                      onChange={(e) => {
-                        setPhone(e.target.value);
-                      }}
+                      type="tel"
+                      className={`form-control ${
+                        validContact ? "" : "is-invalid"
+                      }`}
+                      id="contact"
                       value={phone}
+                      onChange={handleContactChange}
                     />
-                    <label for="floatingPassword">Phone</label>
+                    <label htmlFor="contact">Contact</label>
+                    {!validContact && (
+                      <div className="invalid-feedback">{contactError}</div>
+                    )}
                   </div>
                   <div class="form-floating mb-2">
                     <input

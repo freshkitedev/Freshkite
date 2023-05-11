@@ -1,8 +1,18 @@
 import { Link } from "react-router-dom";
 import "./StudentLogin.css";
-
+import { useNavigate } from "react-router-dom";
 
 const StudentLogin = () => {
+  const navigate = useNavigate();
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // Perform login logic here, e.g. send request to backend API
+    // If login is successful, navigate to student dashboard
+    navigate("/studentdashboard");
+  };
+
+
   return (
     <div class="container">
       <div class="row">
@@ -15,7 +25,7 @@ const StudentLogin = () => {
                   <i class="bi bi-house"></i>
                 </Link>
               </h5>
-              <form>
+              <form onSubmit={handleSubmit}>
                 <div class="form-floating mb-3">
                   <input
                     type="text"
@@ -37,7 +47,7 @@ const StudentLogin = () => {
                   <label for="floatingPassword">Password</label>
                 </div>
                 <div id="reset" class="text-center text-md-end">
-                  <Link to="/resetstudent">
+                  <Link to="/forgotpassword">
                     <small>Forgot Your Password</small>
                   </Link>
                 </div>
@@ -45,16 +55,16 @@ const StudentLogin = () => {
                 <br></br>
 
                 <div class="d-grid">
-                  
+                 
                   <button
                     class="btn btn-primary btn-login text-uppercase fw-bold"
-                    type="submit"
+                    type="submit" 
                   >
-                    Let's Go In
+                     Let's Go In
                   </button>
                 </div>
                 <br></br>
-                <div class="col-12 col-md-8 mx-auto text-center text-md-start text-lg-center">
+                <div class="d-flex justify-content-center">
                   <h6>
                     &nbsp;&nbsp;Not Registered yet?&nbsp;&nbsp;
                     <Link to="/Student">Register Here</Link>
