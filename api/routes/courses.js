@@ -20,7 +20,7 @@ router.delete("/:id",  deleteCourse);
 //GET
 router.get("/:id",  getCourse);
 
-router.get("/count",  getCourses);
+router.get("/",  getCourses);
 //GET ALL
 
 export default router;

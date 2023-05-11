@@ -50,11 +50,10 @@ export const getStudents = async (req,res,next)=>{
 
 
 
-
+//admin dashboard student's count 
 export const Dashget = async (req, res) => {
   try {
     const count = await Student.countDocuments();
-    console.log({count})
     res.send({ count });
   } catch (error) {
     console.error(error);

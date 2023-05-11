@@ -10,16 +10,18 @@ import { useState, useEffect } from "react";
 const Dashboard = () => {
   const [studentsCount, setStudentsCount] = useState(0);
 
+  const getStudentsCount = async () => {
+    try {
+      const response = await axios.get("http://localhost:9020/api/students/courses/count");
+      setStudentsCount(response.data.count);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
 
   useEffect(() => {
-    const getStudentsCount = async () => {
-      try {
-        const response = await axios.get("http://localhost:9020/api/students/courses/count");
-        setStudentsCount(response.data.count);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+   
 
     getStudentsCount();
   }, []);

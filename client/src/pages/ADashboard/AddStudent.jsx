@@ -8,7 +8,7 @@ export const AddStudent = () => {
   const [name, setName] = useState("");
   const [course, setCourse] = useState("");
   const [year, setYear] = useState("");
-  const [contact, setContact] = useState("");
+  const [phone, setContact] = useState("");
   const [validContact, setValidContact] = useState(true);
   const [contactError, setContactError] = useState("");
   const [email, setEmail] = useState("");
@@ -39,7 +39,7 @@ export const AddStudent = () => {
       year: year,
       email: email,
       password: password,
-      phone: contact,
+      phone: phone,
     };
     axios
       .post("http://localhost:9020/api/admin/createstudent", data)
@@ -107,28 +107,25 @@ export const AddStudent = () => {
                     />
                     <label for="floatingInput">Name</label>
                   </div>
-                  <div class="form-floating mb-2">
-                    <select
-                      type="text"
-                      class="form-control form-select mb-3"
-                      id="floatingPassword"
-                      onChange={(e) => {
-                        setCourse(e.target.value);
-                      }}
-                      value={course}
-                      aria-label=".form-select-lg example"
-                    >
-                      <option selected value="BE">
-                        {" "}
-                        BE
-                      </option>
-                      <option value="B.Sc">B.Sc</option>
-                      <option value="12th">12th</option>
-                      <option value="BA">BA</option>
-                    </select>
+                  <div className="form-floating mb-2">
+ 
+  <select
+    className="form-control form-select mb-3"
+    id="course"
+    value={course}
+    onChange={e => setCourse(e.target.value)}
+  >
+     <option value="" disabled selected>
+    Select a course
+  </option>
+    <option value="BE">BE</option>
+    <option value="B.Sc">B.Sc</option>
+    <option value="12">12th</option>
+    <option value="BA">BA</option>
+  </select>
+  <label htmlFor="course">Course</label>
+</div>
 
-                    <label for="floatingPassword">Course</label>
-                  </div>
                   <div class="form-floating mb-2">
                     <input
                       type="number"
@@ -149,7 +146,7 @@ export const AddStudent = () => {
                     }`}
                     id="contact"
                     
-                    value={contact}
+                    value={phone}
                     onChange={handleContactChange}
                   />
                   <label htmlFor="contact">Contact</label>
