@@ -14,7 +14,6 @@ export const AddStudent = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-
   const handleContactChange = (event) => {
     const contactValue = event.target.value;
     // check if the entered value is a number and has 10 digits
@@ -28,7 +27,6 @@ export const AddStudent = () => {
       setContactError("Please enter a valid 10-digit contact number");
     }
   };
-
 
   const navigate = useNavigate();
   const handleSubmit = (e) => {
@@ -108,52 +106,51 @@ export const AddStudent = () => {
                     <label for="floatingInput">Name</label>
                   </div>
                   <div className="form-floating mb-2">
- 
-  <select
-    className="form-control form-select mb-3"
-    id="course"
-    value={course}
-    onChange={e => setCourse(e.target.value)}
-  >
-     <option value="" disabled selected>
-    Select a course
-  </option>
-    <option value="BE">BE</option>
-    <option value="B.Sc">B.Sc</option>
-    <option value="12">12th</option>
-    <option value="BA">BA</option>
-  </select>
-  <label htmlFor="course">Course</label>
-</div>
+                    <select
+                      className="form-control form-select mb-3"
+                      id="course"
+                      value={course}
+                      onChange={(e) => setCourse(e.target.value)}
+                    >
+                      <option value="" disabled selected>
+                        Select a course
+                      </option>
+                      <option value="BE">BE</option>
+                      <option value="B.Sc">B.Sc</option>
+                      <option value="12">12th</option>
+                      <option value="BA">BA</option>
+                    </select>
+                    <label htmlFor="course">Course</label>
+                  </div>
 
                   <div class="form-floating mb-2">
                     <input
-                      type="number"
+                      type="date"
                       class="form-control"
                       id="floatingPassword"
+                      min="1950-01-01" max="2070-12-31" step="1"
                       onChange={(e) => {
                         setYear(e.target.value);
                       }}
                       value={year}
                     />
-                    <label for="floatingPassword">Year</label>
+                    <label for="floatingPassword">Passed Out Year</label>
                   </div>
                   <div className="form-floating mb-3">
-                  <input
-                    type="tel"
-                    className={`form-control ${
-                      validContact ? "" : "is-invalid"
-                    }`}
-                    id="contact"
-                    
-                    value={phone}
-                    onChange={handleContactChange}
-                  />
-                  <label htmlFor="contact">Contact</label>
-                  {!validContact && (
-                    <div className="invalid-feedback">{contactError}</div>
-                  )}
-                </div>
+                    <input
+                      type="tel"
+                      className={`form-control ${
+                        validContact ? "" : "is-invalid"
+                      }`}
+                      id="contact"
+                      value={phone}
+                      onChange={handleContactChange}
+                    />
+                    <label htmlFor="contact">Contact</label>
+                    {!validContact && (
+                      <div className="invalid-feedback">{contactError}</div>
+                    )}
+                  </div>
                   <div class="form-floating mb-2">
                     <input
                       type="email"
