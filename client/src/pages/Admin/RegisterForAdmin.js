@@ -1,66 +1,121 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 
 const RegisterForAdmin = () => {
+  const [name, setName] = useState("");
+  const [phone, setContact] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
+
+  const navigate = useNavigate();
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (password !== confirmPassword) {
+      setErrorMessage("Passwords do not match");
+      return;
+    }
+  
+
+    axios.post("http://localhost:9020/api/admin/register", {
+      name,
+      email,
+      phone,
+      password,
+    })
+    .then(response => {
+      console.log(response.data);
+      alert("Successfully Registered")
+      navigate("/Admin")
+      
+
+      // Navigate to login page or display success message
+    })
+    .catch(error => {
+      console.log(error);
+      // Display error message to user
+      alert("Error, Try Again")
+    });
+  };
+
   return (
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-          <div class="card border-0 shadow rounded-3 my-5">
-            <div class="card-body p-4 p-sm-5">
-              <h5 class="card-title text-center mb-5 fw-light fs-5">
+    <div className="container">
+      <div className="row">
+        <div className="col-sm-9 col-md-7 col-lg-5 mx-auto">
+          <div className="card border-0 shadow rounded-3 my-5">
+            <div className="card-body p-4 p-sm-5">
+              <h5 className="card-title text-center mb-5 fw-light fs-5">
                 Admin Registration Form{" "}
                 <Link to="/">
-                  <i class="bi bi-house"></i>
+                  <i className="bi bi-house"></i>
                 </Link>
               </h5>
-              <form>
-                <div class="form-floating mb-3">
+              <form onSubmit={handleSubmit}>
+                <div className="form-floating mb-3">
                   <input
                     type="text"
-                    class="form-control"
-                    id="floatingInput"
+                    className="form-control"
+                    id="name"
                     placeholder="name@example.com"
+                    value={name}
+                    onChange={(event) => setName(event.target.value)}
                   />
-                  <label for="floatingInput">Name</label>
+                  <label htmlFor="name">Name</label>
                 </div>
 
-                <div class="form-floating mb-3">
+                <div className="form-floating mb-3">
                   <input
-                    type="Number"
-                    class="form-control"
-                    id="floatingInput"
+                    type="number"
+                    className="form-control"
+                    id="contact"
                     placeholder="Contact"
+                    value={phone}
+                    onChange={(event) => setContact(event.target.value)}
                   />
-                  <label for="floatingPassword">Contact</label>
+                  <label htmlFor="contact">Contact</label>
                 </div>
 
-                <div class="form-floating mb-3">
+                <div className="form-floating mb-3">
                   <input
                     type="email"
-                    class="form-control"
-                    id="floatingInput"
+                    className="form-control"
+                    id="email"
                     placeholder="Email"
+                    value={email}
+                    onChange={(event) => setEmail(event.target.value)}
                   />
-                  <label for="floatingPassword">Email</label>
+                  <label htmlFor="email">Email</label>
                 </div>
-                <div class="form-floating mb-3">
+                <div className="form-floating mb-3">
                   <input
                     type="password"
-                    class="form-control"
-                    id="floatingInput"
-                    placeholder="password"
+                    className="form-control"
+                    id="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(event) => setPassword(event.target.value)}
                   />
-                  <label for="floatingPassword">Password</label>
+                  <label htmlFor="password">Password</label>
                 </div>
-                <div class="form-floating mb-3">
+                <div className="form-floating mb-3">
                   <input
                     type="password"
-                    class="form-control"
-                    id="floatingInput"
+                    className="form-control"
+                    id="confirmPassword"
                     placeholder="Repeat password"
+                    value={confirmPassword}
+                    onChange={(event) => setConfirmPassword(event.target.value)}
                   />
-                  <label for="floatingPassword">Repeat Password</label>
+                  <label htmlFor="confirmPassword">Repeat Password</label>
                 </div>
+                {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
+                
+
                 <div class="d-grid">
                   <button
                     class="btn btn-primary btn-login text-uppercase fw-bold"

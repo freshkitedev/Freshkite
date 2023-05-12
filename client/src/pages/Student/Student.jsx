@@ -1,15 +1,19 @@
 import React, { useState } from "react";
 import "./Student.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import zxcvbn from "zxcvbn";
+import axios from "axios";
 
 const Student = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordMatch, setPasswordMatch] = useState(true);
-  const [contact, setContact] = useState("");
+  const [phone, setContact] = useState("");
   const [validContact, setValidContact] = useState(true);
   const [contactError, setContactError] = useState("");
+  const [year, setYear] = useState("");
 
   const [selectedCourse, setSelectedCourse] = useState("");
 
@@ -37,10 +41,31 @@ const Student = () => {
     setPasswordMatch(event.target.value === password);
   };
 
+  const navigate = useNavigate();
+
   const handleSubmit = (event) => {
     event.preventDefault();
     if (password === confirmPassword && validContact) {
-      // submit form
+      axios
+        .post("http://localhost:9020/api/students/register", {
+          name,
+          email,
+          phone,
+          password,
+          selectedCourse,
+          year,
+        })
+        .then((response) => {
+          console.log(response.data);
+          alert("successfully Registered");
+          navigate("/studentlogin");
+          // Display success message or navigate to login page
+        })
+        .catch((error) => {
+          console.log(error);
+          alert("error");
+          // Display error message to user
+        });
     } else {
       if (password !== confirmPassword) {
         setPasswordMatch(false);
@@ -50,16 +75,14 @@ const Student = () => {
       }
     }
   };
+
   const courses = [
     { name: "BE", fees: 40000 },
     { name: "B.Sc", fees: 50000 },
     { name: "B.Com", fees: 6000 },
-    { name: "12th", fees: 100000 },
+    { name: "12", fees: 12000 },
   ];
 
-  const handleCourseChange = (event) => {
-    setSelectedCourse(event.target.value);
-  };
   const handleContactChange = (event) => {
     const contactValue = event.target.value;
     // check if the entered value is a number and has 10 digits
@@ -93,6 +116,8 @@ const Student = () => {
                     class="form-control"
                     id="floatingInput"
                     placeholder="name@example.com"
+                    value={name}
+                    onChange={(event) => setName(event.target.value)}
                   />
                   <label for="floatingInput">Name</label>
                 </div>
@@ -101,7 +126,7 @@ const Student = () => {
                     className="form-select"
                     id="floatingSelect"
                     value={selectedCourse}
-                    onChange={handleCourseChange}
+                    onChange={(event) => setSelectedCourse(event.target.value)}
                   >
                     <option value="" disabled selected>
                       Choose your course
@@ -123,7 +148,7 @@ const Student = () => {
                     }`}
                     id="contact"
                     placeholder="Contact"
-                    value={contact}
+                    value={phone}
                     onChange={handleContactChange}
                   />
                   <label htmlFor="contact">Contact</label>
@@ -157,8 +182,21 @@ const Student = () => {
                     placeholder="Email"
                     required
                     pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                    value={email}
+                    onChange={(event) => setEmail(event.target.value)}
                   />
                   <label for="floatingInput">Email</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="floatingInput"
+                    placeholder="year"
+                    value={year}
+                    onChange={(event) => setYear(event.target.value)}
+                  />
+                  <label for="floatingInput">Year</label>
                 </div>
 
                 <div className="form-floating mb-3">
