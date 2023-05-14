@@ -85,11 +85,13 @@ export const studentLogin = async (req, res, next) => {
       return next(createError(400, "Invalid email or password"));
     }
     const token = jwt.sign({ id: student._id }, process.env.JWT);
+    //const studentId = student._id; // store the student ID in a variable
     res.status(200).json({ token });
   } catch (err) {
     next(err);
   }
 };
+
 
 
 export const StudentRegister = async (req, res, next) => {
