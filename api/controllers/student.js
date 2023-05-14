@@ -54,15 +54,15 @@ export const getStudents = async (req, res, next) => {
 };
 
 //admin dashboard student's count
-export const Dashget = async (req, res) => {
-  try {
-    const count = await Student.countDocuments();
-    res.send({ count });
-  } catch (error) {
-    console.error(error);
-    res.status(500).send("Server error");
-  }
-};
+//export const Dashget = async (req, res) => {
+//try {
+// const count = await Student.countDocuments();
+//res.send({ count });
+//} catch (error) {
+//console.error(error);
+//res.status(500).send("Server error");
+//}
+//};
 
 export const addStudent = async (req, res, next) => {
   try {
@@ -119,3 +119,21 @@ export const StudentRegister = async (req, res, next) => {
     next(err);
   }
 };
+
+export const EachStudent = async (req, res) => {
+  try {
+    const students = await Student.aggregate([
+      {
+        $group: {
+          _id: '$course',
+          count: { $sum: 1 }
+        }
+      }
+    ]);
+    res.json(students);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal server error');
+  }
+}
+
