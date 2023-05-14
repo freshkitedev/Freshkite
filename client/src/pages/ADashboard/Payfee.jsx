@@ -101,50 +101,52 @@ const Adash = () => {
                 </tr>
               </thead>
               <tbody>
-                {data.length > 0 ? (
-                  data
-                    .filter((value) => {
-                      if (search === "") {
-                        return value;
-                      } else if (
-                        value.name.toLowerCase().includes(search.toLowerCase())
-                      ) {
-                        return value;
-                      }
-                    })
-                    .map((items, index) => (
-                      <tr key={items._id}>
-                        <td>{index + 1}</td>
-                        <td>{items.name}</td>
-                        <td>{items.course}</td>
-                        <td>{items.email}</td>
-                        <td>{items.year}</td>
-                        <td>{items.phone}</td>
-                        <td>{items.balance}</td>
-                        <td>
-                          <button
-                            type="button"
-                            className="btn btn-outline-success"
-                            onClick={() => payfee(items)}
-                          >
-                            Payfee
-                          </button>
-                        </td>
-                        <td>
-                          <button
-                            type="button"
-                            className="btn btn-outline-danger"
-                            onClick={() => del(items)}
-                          >
-                            Delete
-                          </button>
-                        </td>
-                      </tr>
-                    ))
-                ) : (
-                  <tr>No Data</tr>
-                )}
-              </tbody>
+  {data.length > 0 ? (
+    data
+      .filter((value) => {
+        if (search === "") {
+          return value;
+        } else if (
+          value.name.toLowerCase().includes(search.toLowerCase())
+        ) {
+          return value;
+        }
+      })
+      .filter((value) => value.balance !== 0)
+      .map((items, index) => (
+        <tr key={items._id}>
+          <td>{index + 1}</td>
+          <td>{items.name}</td>
+          <td>{items.course}</td>
+          <td>{items.email}</td>
+          <td>{items.year}</td>
+          <td>{items.phone}</td>
+          <td>{items.balance}</td>
+          <td>
+            <button
+              type="button"
+              className="btn btn-outline-success"
+              onClick={() => payfee(items)}
+            >
+              Payfee
+            </button>
+          </td>
+          <td>
+            <button
+              type="button"
+              className="btn btn-outline-danger"
+              onClick={() => del(items)}
+            >
+              Delete
+            </button>
+          </td>
+        </tr>
+      ))
+  ) : (
+    <tr>No Data</tr>
+  )}
+</tbody>
+
             </table>
           </div>{" "}
         </div>{" "}
