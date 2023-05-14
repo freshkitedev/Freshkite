@@ -5,10 +5,11 @@ import {
   deleteStudent,
   getStudent,
   getStudents,
-  Dashget,
+  //Dashget,
   
   StudentRegister,
-  studentLogin
+  studentLogin,
+  EachStudent
 } from "../controllers/student.js";
 
 
@@ -32,7 +33,7 @@ router.get("/:id", getStudent);
 router.get("/", getStudents);
 
 // GET STUDENT COUNT
-router.get('/courses/count', Dashget);
+//router.get('/courses/count', Dashget);
 
 
 // Route to get student dashboard data
@@ -40,5 +41,9 @@ router.post("/login", studentLogin);
 
 //Student Register
 router.post("/register", StudentRegister)
+
+
+//for each coursse how many students took
+router.get("/course/count", EachStudent)
 
 export default router;
