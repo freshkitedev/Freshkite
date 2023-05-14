@@ -6,7 +6,9 @@ import {
   getStudent,
   getStudents,
   Dashget,
-  StudentDashboard
+  
+  StudentRegister,
+  studentLogin
 } from "../controllers/student.js";
 
 
@@ -34,6 +36,9 @@ router.get('/courses/count', Dashget);
 
 
 // Route to get student dashboard data
-router.get("/:studentId/dashboard", StudentDashboard);
+router.post("/login", studentLogin);
+
+//Student Register
+router.post("/register", StudentRegister)
 
 export default router;

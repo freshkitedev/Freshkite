@@ -1,70 +1,66 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useJwt } from "react-jwt";
+import { useNavigate } from "react-router-dom";
 
-const StudentDashboard = ({ studentId }) => {
-  const [student, setStudent] = useState(null);
-  const [courses, setCourses] = useState([]);
-  const [payments, setPayments] = useState([]);
+
+const StudentDashboard = () => {
+  const [studentDetails, setStudentDetails] = useState({});
+  const token = localStorage.getItem("token");
+  //const studentId = JSON.parse(localStorage.getItem("studentId")); // Retrieve student ID from localStorage and parse it as JSON
+  const { decodedToken } = useJwt(token);
+
+  const navigate = useNavigate();
+
+  const fetchStudentDetails = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:9020/api/students/${decodedToken.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setStudentDetails(response.data.details);
+    } catch (error) {
+      alert(error.response.data.message);
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // Fetch student data
-        const studentRes = await axios.get(`/api/students/${studentId}`);
-        setStudent(studentRes.data);
+    if (decodedToken) {
+      fetchStudentDetails();
+    }
+  }, [decodedToken]);
 
-        // Fetch courses for the student
-        const coursesRes = await axios.get(`/api/students/${studentId}/courses`);
-        setCourses(coursesRes.data);
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("studentId");
+    navigate("/studentlogin");
+  };
 
-        // Fetch payments for the student
-        const paymentsRes = await axios.get(`/api/students/${studentId}/payments`);
-        setPayments(paymentsRes.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchData();
-  }, [studentId]);
-
-  // Calculate the total fees for all courses
-  const totalFees = courses.reduce((acc, course) => acc + course.fees, 0);
-
-  // Calculate the total payments made by the student
-  const totalPayments = payments.reduce((acc, payment) => acc + payment.amount, 0);
-
-  // Calculate the remaining balance
-  const remainingBalance = totalFees - totalPayments;
-
-  if (!student) {
-    return <div>Loading...</div>;
-  }
+  const payFee = () => {
+    navigate("/payment");
+  };
 
   return (
-    <div>
-      <h1>{student.name}'s Dashboard</h1>
-      <h2>Courses</h2>
-      <ul>
-        {courses.map((course) => (
-          <li key={course._id}>
-            {course.name} - {course.fees}
-          </li>
-        ))}
-      </ul>
-      <h2>Payments</h2>
-      <ul>
-        {payments.map((payment) => (
-          <li key={payment._id}>
-            {payment.amount} paid on {new Date(payment.date).toLocaleDateString()}
-          </li>
-        ))}
-      </ul>
-      <h2>Summary</h2>
-      <p>Total Fees: {totalFees}</p>
-      <p>Total Payments: {totalPayments}</p>
-      <p>Remaining Balance: {remainingBalance}</p>
-    </div>
+    <div className="d-flex justify-content-center align-items-center vh-100" style={{ backgroundColor: "" }}>
+      <div className="  text-center p-5" style={{backgroundColor:"lightblue", borderRadius:"40px" , marginTop:"150px"}}>
+        <h1>Welcome <b>{studentDetails.name}!</b></h1>
+        <p>Your email is <b>{studentDetails.email}</b>. </p>
+        <p>You are currently taking the course <b>{studentDetails.course}</b>. </p>
+        <p>Balance Fees to Pay For the Course <b>{studentDetails.balance}</b>.</p>
+        <div className="d-flex justify-content-center">
+          <button className="btn btn-primary" onClick={payFee}>
+            Pay Fee
+          </button>&nbsp;
+          <button className="btn btn-danger " onClick={handleLogout}>
+            Logout
+          </button>
+        </div>
+     </div>
+     </div>
   );
 };
 
