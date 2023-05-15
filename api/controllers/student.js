@@ -154,9 +154,9 @@ export const forgot = async (req, res) => {
     console.log(otp)
 
     const transporter = nodemailer.createTransport({
-      host: 'smtp.gmail.com',
-      port: 465,
-      secure: true,
+      host: process.env.host,
+      port: process.env.port,
+      secure: process.env.SECURE,
       auth: {
         user: process.env.EMAIL,
         pass: process.env.PASSWORD
@@ -246,6 +246,7 @@ export const ChangePassword = async (req, res) => {
     }
 
     // Hash the new password
+    
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Update the password
