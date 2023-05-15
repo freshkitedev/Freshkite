@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-export const Forgotpassword = () => {
+export const ForgotpasswordAm = () => {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -12,12 +12,13 @@ export const Forgotpassword = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post("http://localhost:9020/api/students/forgot", { email });
+      const response = await axios.post("http://localhost:9020/api/admin/forgot", { email });
       if (response.status === 200) {
-        navigate("/enterotp", { state: { email } });
+        navigate("/enterotpam", { state: { email } });
       }
     } catch (error) {
       console.log(error);
+      alert("User not Found")
     }
 
     setLoading(false);

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import axios from "axios";
 
-export function Enterotp() {
+export function EnterotpAm() {
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
 
   const location = useLocation();
@@ -51,11 +51,11 @@ export function Enterotp() {
     console.log(enteredOtp, email)
     // submit the entered OTP to the server
     axios
-      .post("http://localhost:9020/api/students/otpverification", { otp: enteredOtp, email })
+      .post("http://localhost:9020/api/admin/otpverification", { otp: enteredOtp, email })
       .then(response => {
         // Handle successful response from the server
         console.log("OTP verification success:", response.data);
-        navigate("/Newpasscode", { state: { email } });
+        navigate("/Newpasscodeam", { state: { email } });
       })
       .catch(error => {
         // Handle error response from the server
