@@ -1,12 +1,11 @@
 import mongoose from "mongoose";
 import autoIncrement from "mongoose-auto-increment";
-const StudentSchema = new mongoose.Schema(
+ const StudentSchema = new mongoose.Schema(
   {
     name: {
       type: String,
       required: true,
     },
-
     course: {
       type: String,
       required: true,
@@ -21,28 +20,31 @@ const StudentSchema = new mongoose.Schema(
       unique: true,
     },
     phone: {
-        type: String,
-        required: true,
-        unique: true,
-    },
-    password: {
       type: String,
       required: true,
       unique: true,
     },
+    password: {
+      type: String,
+      required: true,
+    },
     balance:{
       type:Number,
-    }
+    },
+    otp: {
+      type: String, // or Number, depending on your preference
+    },
+    otpExpiration: {
+      type: Date,
+    },
   },
-    { timestamps: true }
+  { timestamps: true }
 );
-
-autoIncrement.initialize(mongoose.connection);
+ autoIncrement.initialize(mongoose.connection);
 StudentSchema.plugin(autoIncrement.plugin, {
-  model: "Student", 
-  field: "_id", 
-  startAt: 101, 
-  incrementBy: 1, 
+  model: "Student",
+  field: "_id",
+  startAt: 101,
+  incrementBy: 1,
 });
-
-  export default mongoose.model("Student", StudentSchema);
+ export default mongoose.model("Student", StudentSchema);

@@ -1,11 +1,23 @@
 import { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-export function Enterotp() {
-  const [otp, setOtp] = useState(["", "", "", ""]);
+import axios from "axios";
 
-  const inputsRef = [useRef(null), useRef(null), useRef(null), useRef(null)];
+export function Enterotp() {
+  const [otp, setOtp] = useState(["", "", "", "", "", ""]);
+
+  const location = useLocation();
+  const email = location.state && location.state.email ? location.state.email : "";
+
+  const inputsRef = [
+    useRef(null),
+    useRef(null),
+    useRef(null),
+    useRef(null),
+    useRef(null),
+    useRef(null)
+  ];
 
   const handleOnChange = (index, event) => {
     const { value } = event.target;
@@ -14,8 +26,8 @@ export function Enterotp() {
     otpCopy[index] = value;
     setOtp(otpCopy);
     if (value) {
-      if (index === 3) {
-        inputsRef[3].current.blur();
+      if (index === 5) {
+        inputsRef[5].current.blur();
       } else {
         inputsRef[index + 1].current.focus();
       }
@@ -24,20 +36,31 @@ export function Enterotp() {
 
   const handleOnKeyDown = (index, event) => {
     const { keyCode } = event;
-    if (keyCode === 8 && !otp[index] && index !== 3) {
+    if (keyCode === 8 && !otp[index] && index !== 0) {
       inputsRef[index - 1].current.focus();
       const otpCopy = [...otp];
       otpCopy[index - 1] = "";
       setOtp(otpCopy);
     }
   };
+
   const navigate = useNavigate();
 
   const handleSubmit = () => {
     const enteredOtp = otp.join("");
+    console.log(enteredOtp, email)
     // submit the entered OTP to the server
-    console.log("Entered OTP:", enteredOtp);
-    navigate("/Newpasscode");
+    axios
+      .post("http://localhost:9020/api/students/otpverification", { otp: enteredOtp, email })
+      .then(response => {
+        // Handle successful response from the server
+        console.log("OTP verification success:", response.data);
+        navigate("/Newpasscode", { state: { email } });
+      })
+      .catch(error => {
+        // Handle error response from the server
+        console.log("OTP verification error:", error.response.data);
+      });
   };
 
   return (
@@ -45,7 +68,7 @@ export function Enterotp() {
       <div className="card border-0 shadow p-5">
         <h5 className="card-title mb-0">
           <Link to="/forgotpassword">
-            <i class="bi bi-skip-backward-fill"></i>
+            <i className="bi bi-skip-backward-fill"></i>
           </Link>
           &nbsp;&nbsp;OTP verification{" "}
         </h5>

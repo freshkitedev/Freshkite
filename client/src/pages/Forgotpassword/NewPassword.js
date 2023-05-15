@@ -1,16 +1,38 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export function NewPassword() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const email = location.state?.email || "";
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
     if (password === confirmPassword) {
-      // Submit form
-      console.log("Form submitted!");
+      // Send the change password request to the backend
+      axios
+        .post("http://localhost:9020/api/students/newpasscode", {
+          email,
+          password
+        })
+        .then((response) => {
+          // Handle successful response from the server
+          console.log("Password changed successfully:", response.data);
+          setSuccess(true);
+          navigate("/studentlogin")
+        })
+        .catch((error) => {
+          // Handle error response from the server
+          console.log("Error changing password:", error.response.data);
+          setError("Failed to change password. Please try again.");
+        });
     } else {
       setError("Passwords do not match");
     }
@@ -29,9 +51,10 @@ export function NewPassword() {
       <div className="card border-0 shadow p-5" style={{ width: "400px" }}>
         <h5 className="card-title mb-0">
           <Link to="/enterotp">
-            <i class="bi bi-skip-backward-fill"></i>
+            <i className="bi bi-skip-backward-fill"></i>
           </Link>
-          &nbsp;&nbsp;Enter new password&nbsp;<i class="bi bi-pass-fill"></i>
+          &nbsp;&nbsp;Enter new password&nbsp;
+          <i className="bi bi-pass-fill"></i>
         </h5>
         <form onSubmit={handleSubmit}>
           <div className="form-group mt-3">
@@ -57,6 +80,11 @@ export function NewPassword() {
             />
           </div>
           {error && <div className="text-danger mt-3">{error}</div>}
+          {success && (
+            <div className="text-success mt-3">
+              Password changed successfully!
+            </div>
+          )}
           <div className="text-center mt-5">
             <button type="submit" className="btn btn-primary">
               Submit

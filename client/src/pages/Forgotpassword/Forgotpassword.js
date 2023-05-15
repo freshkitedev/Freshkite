@@ -1,49 +1,69 @@
+import { useState } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 
 export const Forgotpassword = () => {
+  const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = () => {
-    navigate("/enterotp");
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setLoading(true);
+
+    try {
+      const response = await axios.post("http://localhost:9020/api/students/forgot", { email });
+      if (response.status === 200) {
+        navigate("/enterotp", { state: { email } });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+
+    setLoading(false);
   };
 
   return (
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+    <div className="container">
+      <div className="row">
+        <div className="col-sm-9 col-md-7 col-lg-5 mx-auto">
           <div
-            class="card border-0 shadow rounded-3 my-5  "
+            className="card border-0 shadow rounded-3 my-5"
             style={{ backgroundColor: "#f5f5f5" }}
           >
-            <div class="card-body p-4 p-sm-5">
-              <h5 class="card-title text-center mb-5 fw-light fs-5">
-                <Link to="/Admin">
-                  <i class="bi bi-skip-backward-fill"></i>
-                </Link>
+            <div className="card-body p-4 p-sm-5">
+              <h5 className="card-title text-center mb-5 fw-light fs-5">
+                <button
+                  className="btn btn-link"
+                  onClick={() => navigate("/admin")}
+                >
+                  <i className="bi bi-skip-backward-fill"></i>
+                </button>
                 &nbsp;&nbsp;&nbsp;Reset Password Here...{" "}
-                <i class="bi bi-envelope-at"></i>
+                <i className="bi bi-envelope-at"></i>
               </h5>
-              <form>
-                <div class="form-floating mb-3">
+              <form onSubmit={handleSubmit}>
+                <div className="form-floating mb-3">
                   <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     id="floatingInput"
                     placeholder="Enter your Email here....."
-                    name="name"
+                    name="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
-                  <label for="floatingInput">Email</label>
+                  <label htmlFor="floatingInput">Email</label>
                 </div>
 
                 <br></br>
-                <div class="d-grid">
+                <div className="d-grid">
                   <button
-                    class="btn btn-outline-primary btn-login text-uppercase fw-bold"
+                    className="btn btn-outline-primary btn-login text-uppercase fw-bold"
                     type="submit"
-                    onClick={handleSubmit}
+                    disabled={loading}
                   >
-                    Send OTP
+                    {loading ? "Sending OTP..." : "Send OTP"}
                   </button>
                 </div>
 
