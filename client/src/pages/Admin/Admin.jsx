@@ -81,7 +81,7 @@ const Admin = (props) => {
                   <label for="floatingPassword">Password</label>
                 </div>
                 <div class="d-flex justify-content-end">
-                  <Link to="/forgotpassword">Forgot Your Password</Link>
+                  <Link to="/forgotpasswordam">Forgot Your Password</Link>
                 </div>
 
                 <br></br>

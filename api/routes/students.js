@@ -6,10 +6,12 @@ import {
   getStudent,
   getStudents,
   //Dashget,
-  
+  forgot,
   StudentRegister,
   studentLogin,
-  EachStudent
+  EachStudent,
+  OtpVerification,
+  ChangePassword
 } from "../controllers/student.js";
 
 
@@ -45,5 +47,12 @@ router.post("/register", StudentRegister)
 
 //for each coursse how many students took
 router.get("/course/count", EachStudent)
+
+router.post("/forgot", forgot)
+
+router.post("/otpverification", OtpVerification)
+
+
+router.post("/newpasscode", ChangePassword)
 
 export default router;

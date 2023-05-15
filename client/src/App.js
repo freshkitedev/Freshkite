@@ -14,10 +14,14 @@ import StudentLogin from "./pages/Student/StudentLogin";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { Excel } from "./pages/Admin/Excel";
-import { Forgotpassword } from "./pages/Forgotpassword/Forgotpassword";
-import { Enterotp } from "./pages/Forgotpassword/Enterotp";
-import { NewPassword } from "./pages/Forgotpassword/NewPassword";
+import { Forgotpassword } from "./pages/Student/Forgotpassword/Forgotpassword";
+import { Enterotp } from "./pages/Student/Forgotpassword/Enterotp";
+import { NewPassword } from "./pages/Student/Forgotpassword/NewPassword";
 import StudentDashboard from "./pages/Student/StudentDashboard";
+import { ForgotpasswordAm} from "./pages/Admin/ForgotPasswordAdmin/Forgotpassword";
+import { EnterotpAm } from "./pages/Admin/ForgotPasswordAdmin/Enterotp";
+import { NewPasswordAm } from "./pages/Admin/ForgotPasswordAdmin/NewPassword";
+
 
 function App() {
   return (
@@ -36,7 +40,10 @@ function App() {
         <Route path="/studentlogin" element={<StudentLogin />} />
         <Route path="/excel" element={<Excel />} />
         <Route path="/forgotpassword" element={<Forgotpassword/>} />
+        <Route path="/forgotpasswordam" element={<ForgotpasswordAm/>} />
         <Route path="/enterotp" element={<Enterotp/>} />
+        <Route path="/enterotpam" element={<EnterotpAm/>} />
+        <Route path="/Newpasscodeam" element={<NewPasswordAm/>} />
         <Route path="/Newpasscode" element={<NewPassword/>} />
         <Route path="/studentdashboard" element={<StudentDashboard/>} />
       </Routes>

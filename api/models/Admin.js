@@ -23,6 +23,13 @@ var AdminSchema = new mongoose.Schema(
         type: Boolean,
         default: true,
       },
+
+      otp: {
+        type: String, // or Number, depending on your preference
+      },
+      otpExpiration: {
+        type: Date,
+      },
     }
   )
 autoIncrement.initialize(mongoose.connection);

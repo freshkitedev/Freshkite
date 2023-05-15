@@ -150,33 +150,44 @@ const Dashboard = () => {
         <br></br>
         <button className="btn btn-primary" onClick={handleShowTable}>{showTable ? 'Hide ' : 'Detailed View'}</button> {/* updated button */}
         <br></br>&nbsp; {showTable && ( // conditionally render the table
-          <table class="table table-primary table-bordered">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Year</th>
-              </tr>
-            </thead>
-            <tbody>
-              {Object.keys(eachCourse).map((course) => (
-                <>
-                  <tr className="table-success">
-                    <td colSpan="5" style={{ fontWeight: "bold" }}>{course}</td>
-                  </tr>
-                  {eachCourse[course].map((student) => (
-                    <tr key={student._id}>
-                      <td>{student.name}</td>
-                      <td>{student.email}</td>
-                      <td>{student.phone}</td>
-                      <td>{student.year}</td>
-                    </tr>
-                  ))}
-                </>
-              ))}
-            </tbody>
-          </table>
+         <table class="table table-primary table-bordered">
+         <thead>
+           <tr>
+             <th>Name</th>
+             <th>Email</th>
+             <th>Phone</th>
+             <th>Year</th>
+           
+           </tr>
+         </thead>
+         <tbody>
+           {Object.keys(eachCourse).map((course) => (
+             <>
+               <tr className="table-success">
+                 <td colSpan="5" style={{ fontWeight: "bold" }}>{course}</td>
+               </tr>
+               {eachCourse[course].map((student) => (
+                 <tr key={student._id}>
+                   <td>
+                     {student.balance === 0 ? (
+                       <span className="text-success">
+                         {student.name} <i className="bi bi-check-circle">&nbsp;Paid</i>
+                       </span>
+                     ) : (
+                       student.name
+                     )}
+                   </td>
+                   <td>{student.email}</td>
+                   <td>{student.phone}</td>
+                   <td>{student.year}</td>
+                  
+                 </tr>
+               ))}
+             </>
+           ))}
+         </tbody>
+       </table>
+       
         )}
       </div>
     </body>
