@@ -25,6 +25,7 @@ export function NewPassword() {
         .then((response) => {
           // Handle successful response from the server
           console.log("Password changed successfully:", response.data);
+          alert("Password Changed Successfully")
           setSuccess(true);
           navigate("/studentlogin")
         })

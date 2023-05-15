@@ -55,6 +55,7 @@ export function EnterotpAm() {
       .then(response => {
         // Handle successful response from the server
         console.log("OTP verification success:", response.data);
+        alert("OTP Verification Successfull")
         navigate("/Newpasscodeam", { state: { email } });
       })
       .catch(error => {
@@ -67,7 +68,7 @@ export function EnterotpAm() {
     <div className="d-flex justify-content-center align-items-center vh-100">
       <div className="card border-0 shadow p-5">
         <h5 className="card-title mb-0">
-          <Link to="/forgotpassword">
+          <Link to="/forgotpasswordam">
             <i className="bi bi-skip-backward-fill"></i>
           </Link>
           &nbsp;&nbsp;OTP verification{" "}

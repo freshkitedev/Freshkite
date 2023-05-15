@@ -55,12 +55,13 @@ export function Enterotp() {
       .then(response => {
         // Handle successful response from the server
         console.log("OTP verification success:", response.data);
+        alert("OTP Verification Successfull")
         navigate("/Newpasscode", { state: { email } });
       })
       .catch(error => {
         // Handle error response from the server
         console.log("OTP verification error:", error.response.data);
-        alert("")
+        alert("Error")
       });
   };
 

@@ -36,7 +36,7 @@ export const Forgotpassword = () => {
               <h5 className="card-title text-center mb-5 fw-light fs-5">
                 <button
                   className="btn btn-link"
-                  onClick={() => navigate("/admin")}
+                  onClick={() => navigate("/Student")}
                 >
                   <i className="bi bi-skip-backward-fill"></i>
                 </button>

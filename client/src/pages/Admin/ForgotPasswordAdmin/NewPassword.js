@@ -25,6 +25,7 @@ export function NewPasswordAm() {
         .then((response) => {
           // Handle successful response from the server
           console.log("Password changed successfully:", response.data);
+          alert("Password Changed Successfully")
           setSuccess(true);
           navigate("/Admin")
         })
@@ -50,7 +51,7 @@ export function NewPasswordAm() {
     <div className="d-flex justify-content-center align-items-center vh-100">
       <div className="card border-0 shadow p-5" style={{ width: "400px" }}>
         <h5 className="card-title mb-0">
-          <Link to="/enterotp">
+          <Link to="/enterotpam">
             <i className="bi bi-skip-backward-fill"></i>
           </Link>
           &nbsp;&nbsp;Enter new password&nbsp;
