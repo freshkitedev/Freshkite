@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 const Admin = (props) => {
   const [name, setuser] = useState("");
   const [password, setpassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
+ 
 
   const navigate = useNavigate();
   const redirect = () => {
@@ -61,7 +61,7 @@ const Admin = (props) => {
                 </div>
                 <div class="form-floating mb-3 input-group ">
                   <input
-                    type={showPassword ? "text" : "password"}
+                    type= "password"
                     class="form-control"
                     id="floatingPassword"
                     placeholder="Password"
@@ -69,15 +69,7 @@ const Admin = (props) => {
                     value={password}
                     onChange={(e) => setpassword(e.target.value)}
                   />
-                  <button
-                    class="btn btn-outline-primary"
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                  >
-                    <i
-                      class={showPassword ? "bi bi-eye" : "bi bi-eye-slash"}
-                    ></i>
-                  </button>
+                 
                   <label for="floatingPassword">Password</label>
                 </div>
                 <div class="d-flex justify-content-end">
