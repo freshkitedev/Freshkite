@@ -3,7 +3,6 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-
 const RegisterForAdmin = () => {
   const [name, setName] = useState("");
   const [phone, setContact] = useState("");
@@ -11,36 +10,47 @@ const RegisterForAdmin = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-
-
+  const [secretKey, setSecretKey] = useState("");
   const navigate = useNavigate();
+
+
+
+
   const handleSubmit = (event) => {
     event.preventDefault();
     if (password !== confirmPassword) {
       setErrorMessage("Passwords do not match");
       return;
     }
+
+
+    
+
   
+  const expectedSecretKey = "freshkite"; // Replace with your actual secret key
+  if (secretKey !== expectedSecretKey) {
+    setErrorMessage("Invalid Code");
+    return;
+  }
+    axios
+      .post("http://localhost:9020/api/admin/register", {
+        name,
+        email,
+        phone,
+        password,
+      })
+      .then((response) => {
+        console.log(response.data);
+        alert("Successfully Registered");
+        navigate("/Admin");
 
-    axios.post("http://localhost:9020/api/admin/register", {
-      name,
-      email,
-      phone,
-      password,
-    })
-    .then(response => {
-      console.log(response.data);
-      alert("Successfully Registered")
-      navigate("/Admin")
-      
-
-      // Navigate to login page or display success message
-    })
-    .catch(error => {
-      console.log(error);
-      // Display error message to user
-      alert("Error, Try Again")
-    });
+        // Navigate to login page or display success message
+      })
+      .catch((error) => {
+        console.log(error);
+        // Display error message to user
+        alert("Error, Try Again");
+      });
   };
 
   return (
@@ -95,6 +105,21 @@ const RegisterForAdmin = () => {
                   <input
                     type="password"
                     className="form-control"
+                    id="secretKey"
+                    placeholder="Registration Code"
+                    value={secretKey}
+                    onChange={(event) => setSecretKey(event.target.value)}
+                  />
+                  <label htmlFor="secretKey">Registration Code</label>
+                </div>
+                {errorMessage && (
+                  <div className="alert alert-danger">{errorMessage}</div>
+                )}           
+                
+                 <div className="form-floating mb-3">
+                  <input
+                    type="password"
+                    className="form-control"
                     id="password"
                     placeholder="Password"
                     value={password}
@@ -113,19 +138,20 @@ const RegisterForAdmin = () => {
                   />
                   <label htmlFor="confirmPassword">Repeat Password</label>
                 </div>
-                {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
-                
+                {errorMessage && (
+                  <div className="alert alert-danger">{errorMessage}</div>
+                )}
 
-                <div class="d-grid">
+                <div className="d-grid">
                   <button
-                    class="btn btn-primary btn-login text-uppercase fw-bold"
+                    className="btn btn-primary btn-login text-uppercase fw-bold"
                     type="submit"
                   >
                     Register
                   </button>
                 </div>
-                <br></br>
-                <div class="d-flex justify-content-center">
+                <br />
+                <div className="d-flex justify-content-center">
                   <h6>
                     Already Registered? &nbsp;
                     <Link to="/Admin">Login here</Link>
@@ -137,7 +163,5 @@ const RegisterForAdmin = () => {
         </div>
       </div>
     </div>
-  );
-};
-
-export default RegisterForAdmin;
+  )}
+export default RegisterForAdmin
