@@ -1,23 +1,33 @@
-name: Node and React Test
+name: Test and raise PR to Main Branch
 
 on:
-  workflow_run:
-    workflows: ["AutoMerge-PR"]
-    types:
-      - completed
+  push:
+    branches:
+      - dev-branch
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [14.x, 16.x]
 
     steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
         with:
-          node-version: ${{ matrix.node-version }}
-      - run: cd api && npm install
-      - run: cd client && npm install
+          node-version: '16' # You can specify your preferred Node.js version here
+
+      - name: Install backend dependencies
+        run: cd backend && npm install
+        
+      - name: Install frontend dependencies
+        run: cd frontent && npm install
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          token: ${{ secrets.GITHUBSECRET }}
+          branch: main
+          title: "Automated PR from dev-branch to main"
+          body: "This PR was automatically created when tests passed on the dev-branch."
