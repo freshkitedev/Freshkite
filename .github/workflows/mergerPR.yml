@@ -34,7 +34,7 @@ jobs:
         run: docker login --username abinaya251 --password dckr_pat_LtjRdOu77ywqIyaoknlBPxNyfWY
 
       - name: Build Docker image
-        run: docker build -t abinaya251/frontend:latest -f frontend/Dockerfile .
+        run: docker build -t abinaya251/frontend:latest -f client/Dockerfile .
 
       - name: Push Docker image to DockerHub
         run: docker push abinaya251/frontend:latest
