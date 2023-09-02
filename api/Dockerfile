@@ -8,5 +8,6 @@ RUN cd api; \
     npm i nodemon; \
     npm i; 
 WORKDIR /app/api
-CMD ["npm", "run", "start"]
 EXPOSE 9020
+CMD ["npm", "run", "start"]
+
