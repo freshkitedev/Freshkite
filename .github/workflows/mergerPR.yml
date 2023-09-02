@@ -1,21 +1,58 @@
-name: AutoMerge-PR
+name: Merge PR, Test, Build, and Deploy
+
 on:
   pull_request:
-    types:
-      - opened
-  pull_request_review:
-    types:
-      - submitted
-  check_suite:
-    types:
-      - completed
-  status: {}
+    branches:
+      - main
+
 jobs:
-  automerge:
+  merge_and_test:
     runs-on: ubuntu-latest
+
     steps:
-      - id: automerge
-        name: automerge
-        uses: "pascalgn/automerge-action@v0.15.6"
-        env:
-          GITHUB_TOKEN: "${{ secrets.TOKEN }}"
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Merge PR
+        run: git merge --ff-only ${{ github.event.pull_request.head.ref }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16' # Adjust the Node.js version as needed
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test
+
+      - name: Check if tests passed
+        run: exit ${{ steps.run tests.status }}
+
+      - name: Check if tests passed
+        run: docker login --username abinaya251 --password dckr_pat_LtjRdOu77ywqIyaoknlBPxNyfWY
+
+      - name: Build Docker image
+        run: docker build -t abinaya251/frontend:latest -f frontend/Dockerfile .
+
+      - name: Push Docker image to DockerHub
+        run: docker push abinaya251/frontend:latest
+
+  deploy_to_aws:
+    needs: merge_and_test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install sshpass
+        run: sudo apt-get install -y sshpass
+
+      - name: SSH into EC2 and deploy
+        run: |
+          sshpass -p 'Tailwinds@123' ssh ubuntu@20.192.22.172 'docker login --username abinaya251 --password dckr_pat_LtjRdOu77ywqIyaoknlBPxNyfWY'
+          sshpass -p 'Tailwinds@123' ssh ubuntu@20.192.22.172 'docker pull abinaya251/frontend:latest'
+
+
+      - name: Clean up if tests failed
+        if: failure()
+        run: git reset --hard HEAD^
