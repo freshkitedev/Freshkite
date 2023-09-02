@@ -6,6 +6,6 @@ COPY ./package-lock.json client/
 COPY ./ client/
 RUN cd client && npm i 
 WORKDIR /app/client
-EXPOSE 3000
 CMD ["npm", "run", "start"]
+EXPOSE 3000
 
